@@ -5,7 +5,7 @@ class LoginButton extends Component{
 
     render(){
         return(
-            <div className={styles.container}>
+            <div onClick={this.props.logoutHandler? this.props.logoutHandler : null } className={styles.container}>
                 <Link className={styles.link} to={this.props.link}>{this.props.text}</Link>
             </div>
         );

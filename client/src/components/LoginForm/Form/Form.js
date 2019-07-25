@@ -8,7 +8,7 @@ class Form extends Component{
         return(
             <div className={styles.container}>
                 <Header title={"LOGIN TO YOUR ACCOUNT"}/>
-                <Inputs/>
+                <Inputs submitHandler={this.props.submitHandler}/>
             </div>
         );
     }

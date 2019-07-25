@@ -13,8 +13,10 @@ const JWT = {
   },
 };
 const SALT = 10;
+const DEVICES_COUNT = 3;
 module.exports = Object({
   PORT,
   JWT,
   SALT,
+  DEVICES_COUNT,
 });

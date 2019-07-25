@@ -28,6 +28,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      role: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: "GUEST",
+        validate: {
+          isIn: [['CREATIVE', 'BUYER', 'ADMIN', 'GUEST']]
+        }
+      },
       isBanned: {
         allowNull: false,
         defaultValue:false,

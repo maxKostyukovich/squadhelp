@@ -39,7 +39,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: false,
-    }
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "GUEST",
+      validate: {
+        isIn: [['CREATIVE', 'BUYER', 'ADMIN', 'GUEST']]
+      }
+    },
   });
 
   User.associate = function (models) {

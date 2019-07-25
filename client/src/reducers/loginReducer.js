@@ -8,6 +8,7 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
+    console.log(state);
     switch (action.type) {
         case ACTION.LOGIN_REQUEST: {
             return {
@@ -35,6 +36,7 @@ export default function (state = initialState, action) {
             return state;
         }
     }
+
 }
 
 

@@ -25,7 +25,7 @@ module.exports.loginUser = async (req, res, next) => {
   let transaction;
   try {
     transaction = await sequelize.transaction();
-      const user = await User.findOne({ where: { email },attributes: { exclude: ['password'] } });
+      const user = await User.findOne({ where: { email } });
       if (!user) {
         return next(new UserNotFoundError());
       }
@@ -36,9 +36,10 @@ module.exports.loginUser = async (req, res, next) => {
       const accessToken = authHelper.generateAccesToken(user.id);
       const refreshToken = authHelper.generateRefreshToken();
       const count = await RefreshToken.count({ where:{ userId: user.id } });
-      if (count >= 3) {
+      if (count >= constants.DEVICES_COUNT) {
         RefreshToken.destroy({ where: { userId: user.id } },  transaction);
       }
+
       await RefreshToken.create({ userId: user.id, tokenString: refreshToken }, { transaction });
       await transaction.commit();
       res.send({ user, tokenPair: { accessToken, refreshToken } });
@@ -50,34 +51,11 @@ module.exports.loginUser = async (req, res, next) => {
       next(e);
     }
   }
-  // User.findOne({ where: { email } })
-  //   .then(user => {
-  //     if (!user) {
-  //       return next(new UserNotFoundError());
-  //     }
-  //     const isValid = bcrypt.compareSync(password, user.password);
-  //     if (!isValid) {
-  //       return next(new InvalidCredentialsError());
-  //     }
-  //     const accessToken = authHelper.generateAccesToken(user.id);
-  //     const refreshToken = authHelper.generateRefreshToken();
-  //     const count = RefreshToken.count();
-  //     if (count >= 3) {
-  //       RefreshToken.destroy({ where: { userId: user.id } }, { transaction });
-  //     }
-  //     RefreshToken.create({ userId: user.id, tokenString: refreshToken }, { transaction });
-  //     res.send({ user, tokenPair: { accessToken, refreshToken } });
-  //     transaction.commit();
-  //   })
-  //   .catch(err => {
-  //     transaction.rollback();
-  //     next(err);
-  //   });
 };
 
 module.exports.createUser = (req, res, next) => {
-  const { lastName, firstName, email, password } = req.body;
-  User.create({ lastName, firstName, email, password })
+  const { lastName, firstName, email, password, role, isBanned  } = req.body;
+  User.create({ lastName, firstName, email, password, role, isBanned })
     .then(user => {
       const accessToken = authHelper.generateAccesToken(user.id);
       const refreshToken = authHelper.generateRefreshToken();

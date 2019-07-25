@@ -11,5 +11,8 @@ const valid = Yup.object().shape({
     .min(8, 'Password has to be longer than 7 characters!')
     .matches(/^[a-zA-Z0-9]+$/, 'Password must contain only latin characters or numbers')
     .required('Password is required!'),
+  role: Yup.string()
+      .matches(/BUYER|CREATIVE/, 'Role is incorrect')
+      .required('Role is require!')
 });
 module.exports = valid;
