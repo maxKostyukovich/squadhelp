@@ -1,4 +1,3 @@
-/* like mutation */
 import ACTION from '../actions/actiontsTypes';
 
 const initialState = {
@@ -7,36 +6,42 @@ const initialState = {
     error: null,
 };
 
+
 export default function (state = initialState, action) {
-    console.log(state);
     switch (action.type) {
-        case ACTION.LOGIN_REQUEST: {
+        case ACTION.USER_REQUEST: {
             return {
                 ...state,
                 isFetching: true,
                 error: null,
             };
         }
-        case ACTION.LOGIN_RESPONSE: {
+        case ACTION.USER_RESPONSE: {
             return {
                 ...state,
-                user: action.user,
                 isFetching: false,
                 error: null,
+                user: action.user
             };
         }
-        case ACTION.LOGIN_ERROR: {
+
+        case ACTION.USER_ERROR: {
             return {
                 ...state,
-                error: action.error,
                 isFetching: false,
+                error: action.error,
             };
+        }
+        case ACTION.LOGOUT_REQUEST: {
+            return {
+                ...state,
+                ...initialState
+            }
         }
         default: {
             return state;
         }
     }
-
 }
 
 

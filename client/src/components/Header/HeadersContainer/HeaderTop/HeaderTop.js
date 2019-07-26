@@ -2,12 +2,12 @@ import React , { Component } from 'react';
 import styles from './HeaderTop.module.sass';
 import LoginButton from './LoginButton/LoginButton';
 import connect from 'react-redux/es/connect/connect';
-import {logoutAction} from "../../../../actions/actionCreator";
+import { logoutAction } from "../../../../actions/actionCreator";
 
 class HeaderTop extends Component{
-
     renderLoginButtons(){
-        if(this.props.user){
+        console.log(this.props.user);
+        if(this.props.user.email){
             return (
                 <LoginButton logoutHandler={this.props.logoutAction} link={'/'} text={"Logout"}/>
             );
@@ -39,7 +39,7 @@ class HeaderTop extends Component{
     }
 }
 const mapStateToProps = (state) => {
-    const { user } = state.loginReducer;
+    const { user } = state.userReducer;
     return {
         user,
     }

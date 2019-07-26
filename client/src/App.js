@@ -1,18 +1,17 @@
 import React from 'react';
 import './_reset.sass';
-import { Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import MainPage from './pages/MainPage/MainPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignUpPage from './pages/SignUpPage/SignUpPage';
-import { createBrowserHistory } from 'history';
-
-const App = (props) => {
+import renderMainPage from './components/HOC/renderMainPage';
+const App = () => {
     return(
-        <Router history={createBrowserHistory()}>
+        <Router>
             <Switch>
-                <Route path="/" exact render={(props)=><MainPage {...props}/>} />
-                <Route path="/login/" render={(props)=><LoginPage {...props}/>} />
-                <Route path="/signup/" render={(props)=><SignUpPage {...props}/>} />
+                <Route path="/" exact component={renderMainPage(MainPage)} />
+                <Route path="/login" component={LoginPage} />
+                <Route path="/signup" componen={SignUpPage} />
             </Switch>
         </Router>);
 };

@@ -12,7 +12,7 @@ app.use(express.json());
 app.use('/api', router);
 
 app.use((err, req, res, next)=>{
-  if(err instanceof ApplicationError) {
+  if(err.status) {
     res.status(err.status).send(err.message);
   } else {
     res.status(500).send(err.message);

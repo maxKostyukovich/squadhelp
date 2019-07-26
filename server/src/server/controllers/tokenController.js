@@ -18,7 +18,7 @@ module.exports.refreshToken = (req, res, next) => {
           const accessToken = authHelper.generateAccesToken(token.userId);
           const newRefreshToken = authHelper.generateRefreshToken();
           RefreshToken.create({ userId: token.userId, tokenString: newRefreshToken });
-          RefreshToken.destroy({ where: { id: token.id } });
+          RefreshToken.destroy({ where: { id: token.id } });//TODO create transactions
           res.send({ accessToken, refreshToken: newRefreshToken });
         }else {
           throw new UnauthorizedError('Invalid refresh token');
