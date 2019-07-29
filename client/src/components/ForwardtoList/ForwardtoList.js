@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styles from './ForwardtoList.module.sass';
 import SelectedUsers from './SelectedUsers/SelectedUsers';
 import List from "./List/List";
+import connect from 'react-redux/es/connect/connect';
 import _ from 'lodash'
 // import usersFromDb from '../../users';
 // const users = usersFromDb.map(user=> (
@@ -18,7 +19,6 @@ class ForwardtoList extends Component {
         super(props);
         this.state = {
             selectedUsers: [],
-            users: users
         };
         this.onCheckBoxClickHandler = this.onCheckBoxClickHandler.bind(this);
 
@@ -28,13 +28,13 @@ class ForwardtoList extends Component {
         return users.findIndex(x => x.id==id);
     }
     onCheckBoxClickHandler(user){
-        const newUsers = _.cloneDeep(this.state.users);
+        const newUsers = _.cloneDeep(this.props.users);
         const indexSelectedUser = this.findIndexUserById(newUsers,user.id);
         if(indexSelectedUser>-1){
-            newUsers[indexSelectedUser].isChecked = !newUsers[indexSelectedUser].isChecked;
+            newUsers[indexSelectedUser].isBanned = !newUsers[indexSelectedUser].isBanned;
         }
         this.setState({users: newUsers});
-        const selected = newUsers.filter(u => u.isChecked );
+        const selected = newUsers.filter(u => u.isBanned );
         this.setState({selectedUsers: selected});
 
 }
@@ -48,4 +48,12 @@ class ForwardtoList extends Component {
     }
 
 }
-export default ForwardtoList;
+const mapStateToProps = (state) => {
+    const { error, users } = state.userReducer;
+    return {
+        error,
+        users
+    }
+};
+
+export default connect(mapStateToProps)(ForwardtoList);

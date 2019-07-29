@@ -11,17 +11,21 @@ class ListItem extends Component {
     onChange = () => {
         this.props.clickHandler(this.props.user)
     };
+    fullName(firstName, lastName){
+        return firstName + " " + lastName;
+    }
     render(){
+        const { user } = this.props;
         return(
             <div className={styles.itemListContainer}>
                 <div style={{display: "flex"}}>
-                    <Avatar avatarImage={this.props.user.img}/>
+                    <Avatar avatarImage={"https://cdn2.stylecraze.com/wp-content/uploads/2013/07/6.-Liza-Soberano.jpg"}/>
                     <div className={styles.personalInfo}>
-                        <span className={styles.fullName}>{this.props.user.fullName}</span>
-                        <span className={styles.level}>level {this.props.user.level}</span>
+                        <span className={styles.fullName}>{this.fullName(user.firstName, user.lastName)}</span>
+                        <span className={styles.level}>Role: {user.role}</span>
                     </div>
                 </div>
-                <CustomCheckBox clickHandler={this.onChange} isChecked={this.props.user.isChecked}/>
+                <CustomCheckBox clickHandler={this.onChange} isChecked={user.isBanned}/>
             </div>
         );
     }
