@@ -13,7 +13,7 @@ class TextBox extends Component{
     render(){
         return(
             <div className={styles.container}>
-                <input {...this.props.input} placeholder={this.props.label} />
+                <input className={styles.textBox} {...this.props.input} type={this.props.type} placeholder={this.props.label} />
                 {this.renderError()}
             </div>
         );

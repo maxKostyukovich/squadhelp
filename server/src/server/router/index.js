@@ -11,6 +11,7 @@ router.get('/user/:id', userController.getUserById);
 router.post('/login', validationMiddleware.validationOnLogin, userController.loginUser); //route for login
 router.post('/user', validationMiddleware.validationOnCreateUser, cryptMiddleware, userController.createUser); //route for creating user
 router.get('/user', authMiddleware, userController.getUser);
+router.get('/all-users', authMiddleware, userController.getAllUsers);
 router.post('/refresh', tokenController.refreshToken);//route for refresh
 
 module.exports = router;

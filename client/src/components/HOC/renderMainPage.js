@@ -27,8 +27,8 @@ export default function (ComposedComponent) {
         }
         componentDidMount() {
             this.initUser();
-            console.log(this.props.user);
-            console.log("error: ",this.props.error);
+            //console.log(this.props.user);
+            //console.log("error: ",this.props.error);
         }
 
         render() {

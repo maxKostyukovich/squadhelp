@@ -7,5 +7,9 @@ export const nameValidation = value => (
     Regex.NAME.test(value)? undefined: 'Name is not valid format'
 );
 
+export const isRequireValidation = value => (
+    value ? undefined : "Field is required"
+);
+
 export const passwordValidation = value => (
     Regex.PASSWORD.test(value)? undefined: 'Your password must be at least 8 characters, and include letters and numbers.');

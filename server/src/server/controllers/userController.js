@@ -6,9 +6,9 @@ import InvalidCredentialsError from '../errorHandlers/InvalidCredentialsError';
 import UserNotFoundError from '../errorHandlers/UserNotFoundError';
 import authHelper from '../utils/authHelper';
 import { sequelize } from '../models';
+const Op = db.Sequelize.Op;
 const User = db.User;
 const RefreshToken = db.RefreshToken;
-
 
 module.exports.getUserById = (req, res) => { //function only for testing
   User.findById(req.params.id)
@@ -75,4 +75,14 @@ module.exports.getUser = (req, res, next) => {
       }
       res.send(user);
     }).catch(err => next(err));
+};
+
+module.exports.getAllUsers = (req, res, next) => {
+  User.findAll({where: {role:{[Op.ne]: "ADMIN"}}})
+      .then(users =>{
+        if(!users){
+          return next(new UserNotFoundError());
+        }
+        res.send(users);
+      }).catch(err => next(err));
 };

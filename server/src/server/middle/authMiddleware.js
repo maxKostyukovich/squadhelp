@@ -12,7 +12,6 @@ module.exports = (req, res, next) => {
     if(payload.type !== constants.JWT.tokens.access.type){
       return next(new UnauthorizedError('Invalid token'));
     }
-    req.headers.Authorization = token;
     req.userId = payload.id;
     next();
   }catch (err) {

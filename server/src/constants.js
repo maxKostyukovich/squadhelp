@@ -12,6 +12,18 @@ const JWT = {
     },
   },
 };
+const ROLES = {
+  BUYER: "BUYER",
+  CREATIVE: "CREATIVE",
+  ADMIN: "ADMIN"
+};
+const ACTIONS = {
+  GET: {
+    USER: "USER",
+  },
+  POST: {
+  }
+};
 const SALT = 10;
 const DEVICES_COUNT = 3;
 module.exports = Object({
@@ -19,4 +31,6 @@ module.exports = Object({
   JWT,
   SALT,
   DEVICES_COUNT,
+  ROLES,
+  ACTIONS
 });

@@ -1,17 +1,23 @@
 import React from 'react';
 import './_reset.sass';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { Router, Route, Link, Switch } from "react-router-dom";
+import history from './history';
 import MainPage from './pages/MainPage/MainPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignUpPage from './pages/SignUpPage/SignUpPage';
+import AdminPage from './pages/AdminPage/AdminPage';
+import NotFound from './pages/NotFound/NotFound';
 import renderMainPage from './components/HOC/renderMainPage';
+import renderAdminPage from './components/HOC/renderAdminPage';
 const App = () => {
     return(
-        <Router>
+        <Router history={history}>
             <Switch>
                 <Route path="/" exact component={renderMainPage(MainPage)} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/signup" componen={SignUpPage} />
+                <Route path={"/admin-panel"} component={renderAdminPage(AdminPage)}/>
+                <Route component={NotFound}/>
             </Switch>
         </Router>);
 };

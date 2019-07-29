@@ -13,8 +13,8 @@ class Inputs extends Component{
     render(){
         return(
                 <div className={styles.container}>
-                    <Field name={"email"} type={"text"} validate={validate.emailValidation} label={"Email Address"} component={TextBox}/>
-                    <Field name={"password"} validate={validate.passwordValidation} type={"text"} label={"Password"} component={TextBox}/>
+                    <Field name={"email"} type={"text"} validate={[validate.isRequireValidation, validate.emailValidation]} label={"Email Address"} component={TextBox}/>
+                    <Field name={"password"} validate={[validate.passwordValidation, validate.isRequireValidation]} type={"password"} label={"Password"} component={TextBox}/>
                     <SubmitButton  onClick={this.props.handleSubmit(this.props.loginAction)} submitText={"LOGIN"}/>
                 </div>
         );

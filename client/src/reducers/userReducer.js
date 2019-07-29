@@ -1,6 +1,7 @@
 import ACTION from '../actions/actiontsTypes';
 
 const initialState = {
+    users: [],
     user: {},
     isFetching: false,
     error: null,
@@ -24,7 +25,6 @@ export default function (state = initialState, action) {
                 user: action.user
             };
         }
-
         case ACTION.USER_ERROR: {
             return {
                 ...state,
@@ -36,6 +36,14 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 ...initialState
+            }
+        }
+        case ACTION.GET_ALL_USERS_ADMIN_RESPONSE: {
+            return {
+                ...state,
+                isFetching:false,
+                error: null,
+                users: action.users,
             }
         }
         default: {

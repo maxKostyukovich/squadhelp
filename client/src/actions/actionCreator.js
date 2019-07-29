@@ -12,3 +12,7 @@ export const logoutAction = () => ({
 export const getUserAction = () => ({
   type: ACTION.GET_USER_ACTION,
 });
+
+export const getAllUserAction = () => ({
+  type: ACTION.GET_ALL_USERS_ADMIN_ACTION,
+});
