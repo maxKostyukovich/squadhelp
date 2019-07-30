@@ -38,4 +38,5 @@ export function* getAllUsersAdmin() {
     yield put({type: ACTION.USER_ERROR, error: e})
   }
 
+
 }

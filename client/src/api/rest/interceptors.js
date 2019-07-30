@@ -18,18 +18,25 @@ axios.interceptors.response.use(
         return response
     },
     err => {
-        console.log(err);
+        const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN_TYPE);
         const {config, response: {data, status}} = err;
-        console.log("axios response interceptor error status: ", data ,status);
-        if(status == "401" && !['Token expired', 'Invalid token'].includes(data)){
-            history.push("/login");
+        if(!refreshToken){
+            console.log("No tokens");
             return Promise.reject(err);
         }
-
-        refreshTokens(localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN_TYPE));
-        removeTokens();
-
-        return axios.request(config);
+        if(['Token expired', 'Invalid token'].includes(data)){
+            refreshTokens(refreshToken);
+            return axios.request(config);
+        }
+        if("Refresh token expired" === data){
+            removeTokens();
+            history.push('/login');
+            return Promise.reject(err);
+        }
+        if(status == "401") {
+            removeTokens();
+            return Promise.reject(err);
+        }
     }
 );
 

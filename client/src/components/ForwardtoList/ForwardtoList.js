@@ -2,17 +2,9 @@ import React, { Component } from 'react'
 import styles from './ForwardtoList.module.sass';
 import SelectedUsers from './SelectedUsers/SelectedUsers';
 import List from "./List/List";
-import connect from 'react-redux/es/connect/connect';
 import _ from 'lodash'
-// import usersFromDb from '../../users';
-// const users = usersFromDb.map(user=> (
-//         {
-//             ...user,
-//             isChecked: false
-//         }
-//     )
-// );
-const users = {};
+
+
 class ForwardtoList extends Component {
 
     constructor(props){
@@ -21,11 +13,10 @@ class ForwardtoList extends Component {
             selectedUsers: [],
         };
         this.onCheckBoxClickHandler = this.onCheckBoxClickHandler.bind(this);
-
     }
 
     findIndexUserById(users,id){
-        return users.findIndex(x => x.id==id);
+        return users.findIndex(x => x.id == id);
     }
     onCheckBoxClickHandler(user){
         const newUsers = _.cloneDeep(this.props.users);
@@ -33,27 +24,17 @@ class ForwardtoList extends Component {
         if(indexSelectedUser>-1){
             newUsers[indexSelectedUser].isBanned = !newUsers[indexSelectedUser].isBanned;
         }
-        this.setState({users: newUsers});
+        //this.setState({users: newUsers});
         const selected = newUsers.filter(u => u.isBanned );
         this.setState({selectedUsers: selected});
-
-}
+    }
     render(){
         return(
-            <div className={styles.container}>
-                <SelectedUsers selectedUsers={this.state.selectedUsers}/>
-                <List clickHandler={this.onCheckBoxClickHandler} users={this.state.users}/>
-            </div>
+          <div className={styles.container}>
+              <SelectedUsers selectedUsers={this.state.selectedUsers}/>
+              <List clickHandler={this.onCheckBoxClickHandler} users={this.props.users}/>
+          </div>
         );
     }
-
 }
-const mapStateToProps = (state) => {
-    const { error, users } = state.userReducer;
-    return {
-        error,
-        users
-    }
-};
-
-export default connect(mapStateToProps)(ForwardtoList);
+export default ForwardtoList;

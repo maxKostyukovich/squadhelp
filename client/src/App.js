@@ -9,6 +9,7 @@ import AdminPage from './pages/AdminPage/AdminPage';
 import NotFound from './pages/NotFound/NotFound';
 import renderMainPage from './components/HOC/renderMainPage';
 import renderAdminPage from './components/HOC/renderAdminPage';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 const App = () => {
     return(
         <Router history={history}>
@@ -16,7 +17,7 @@ const App = () => {
                 <Route path="/" exact component={renderMainPage(MainPage)} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/signup" componen={SignUpPage} />
-                <Route path={"/admin-panel"} component={renderAdminPage(AdminPage)}/>
+                <PrivateRoute path={"/admin-panel"} component={renderAdminPage(AdminPage)}/>
                 <Route component={NotFound}/>
             </Switch>
         </Router>);

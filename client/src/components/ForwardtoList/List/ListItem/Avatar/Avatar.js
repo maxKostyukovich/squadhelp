@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import styles from './Avatar.module.sass';
 
 class Avatar extends Component {
-    backgroundImage = {
-        backgroundImage: `url(${this.props.avatarImage })`
+backgroundImage = {
+    backgroundImage: `url(${this.props.avatarImage })`
     };
 
     render(){

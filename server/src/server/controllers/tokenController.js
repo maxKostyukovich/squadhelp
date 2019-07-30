@@ -29,7 +29,7 @@ module.exports.refreshToken = (req, res, next) => {
       });
   } catch(e){
     if(e instanceof jwt.TokenExpiredError){
-      next(new UnauthorizedError('Token expired'));
+      next(new UnauthorizedError('Refresh token expired'));
     } else
     if (e instanceof jwt.JsonWebTokenError) {
       next(new UnauthorizedError('Invalid token'));
@@ -37,7 +37,6 @@ module.exports.refreshToken = (req, res, next) => {
       console.log(e);
       next(e);
     }
-
   }
 };
 

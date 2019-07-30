@@ -15,9 +15,11 @@
 // });
 //
 // export default connect(mapStateToProps,mapDispatchToProps)(renderMainPage);
+
 import  React, { Component }  from 'react';
 import connect from 'react-redux/es/connect/connect';
 import {getUserAction} from '../../actions/actionCreator';
+import { STORAGE_KEYS } from '../../constants';
 export default function (ComposedComponent) {
     class Authenticate extends Component {
         initUser(){
@@ -26,9 +28,9 @@ export default function (ComposedComponent) {
             }
         }
         componentDidMount() {
-            this.initUser();
-            //console.log(this.props.user);
-            //console.log("error: ",this.props.error);
+            if(localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN_TYPE)){
+                this.initUser();
+            }
         }
 
         render() {

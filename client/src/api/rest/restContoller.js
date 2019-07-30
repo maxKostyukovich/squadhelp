@@ -8,6 +8,7 @@ export const refreshTokens = data => axios.post(refreshTokenURL, data).then(setT
 export const getAllUsers = () => axios.get(allUsersURL);
 
 const setTokensToLocalStorage = (res) => {
+  console.log(res);
   localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN_TYPE,`${BEARER}${res.data.tokenPair.accessToken}`);
   localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN_TYPE, res.data.tokenPair.refreshToken);
   return res;
