@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import userReducer from './userReducer'
+import selectedUsersInListReducer from './selectedUsersInListReducer';
 import { reducer as formReducer } from 'redux-form'
 
 const appReducer = combineReducers({

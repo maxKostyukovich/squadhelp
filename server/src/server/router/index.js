@@ -13,6 +13,7 @@ router.post('/user', validationMiddleware.validationOnCreateUser, cryptMiddlewar
 router.get('/user', authMiddleware, userController.getUser);
 router.get('/all-users', authMiddleware, userController.getAllUsers);
 router.post('/refresh', tokenController.refreshToken);//route for refresh
+router.put('/user/:id', userController.updateUserById);
 
 module.exports = router;
 

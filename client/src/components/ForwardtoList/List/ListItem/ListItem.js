@@ -21,7 +21,7 @@ onChange = () => {
                         <span className={styles.level}>Role: {this.props.user.role}</span>
                     </div>
                 </div>
-                <CustomCheckBox clickHandler={this.onChange} isChecked={this.props.user.isBanned}/>
+                <CustomCheckBox clickHandler={this.onChange} isBanned={this.props.user.isBanned}/>
             </div>
         );
     }

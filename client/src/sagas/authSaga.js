@@ -1,6 +1,6 @@
-import { put, call } from 'redux-saga/effects';
+import { put, call, select } from 'redux-saga/effects';
 import ACTION from '../actions/actiontsTypes';
-import { checkLogin, getUser, getAllUsers } from '../api/rest/restContoller';
+import { checkLogin } from '../api/rest/restContoller';
 import history from '../history';
 
 export function* checkLoginUser({ data: newUser }){
@@ -17,26 +17,4 @@ export function* checkLoginUser({ data: newUser }){
 export function* logout() {
   yield put({type: ACTION.LOGOUT_REQUEST});
   localStorage.clear();
-}
-
-export function* getUserSaga() {
-  yield put({ type: ACTION.USER_REQUEST });
-  try{
-    const { data } = yield getUser();
-    yield put({type:ACTION.USER_RESPONSE, user: data});
-  }catch (e) {
-    yield put({type: ACTION.USER_ERROR, error: e})
-  }
-}
-
-export function* getAllUsersAdmin() {
-  yield put({ type: ACTION.USER_REQUEST });
-  try{
-    const { data } = yield getAllUsers();
-    yield put({type: ACTION.GET_ALL_USERS_ADMIN_RESPONSE, users: data });
-  } catch (e) {
-    yield put({type: ACTION.USER_ERROR, error: e})
-  }
-
-
 }

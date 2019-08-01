@@ -4,32 +4,45 @@ import {STORAGE_KEYS} from "../../constants";
 import connect from 'react-redux/es/connect/connect';
 import {getAllUserAction, getUserAction} from "../../actions/actionCreator";
 
-const PrivateRoute = ({component: Component, ...rest}) => (
-    <Route
-        {...rest}
-        render={props => localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN_TYPE)? (
-            <Component {...props}/>
-        ): (<Redirect
-                to={{
-                    pathname: "/login",
-                    state: {from: props.location}
-                }
-                }
-        />
-        )
-        }
-    />
-);
+function isEmpty(obj) {
+    for(let key in obj) {
+        return false;
+    }
+    return true;
+}
+
+const PrivateRoute = ({component: Component, ...rest}) => {
+    if (isEmpty(rest.user)) {
+        rest.getUserAction();
+    }
+    return (
+        <Route
+            {...rest}
+            render={props => localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN_TYPE) ? (
+                <Component {...props}/>
+            ) : (<Redirect
+                    to={{
+                        pathname: "/login",
+                        state: {from: props.location}
+                    }
+                    }
+                />
+            )
+            }
+        />);
+};
 
 const mapStateToProps = (state) => {
-    const { user, error, users } = state.userReducer;
+    const { user, error } = state.userReducer;
     return {
         user,
         error,
-        users
     }
 };
 
-return connect(
-    mapStateToProps,
-)(PrivateRoute);
+const mapDispatchToProps = (dispatch) => ({
+    getUserAction: () => dispatch(getUserAction()),
+});
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(PrivateRoute);

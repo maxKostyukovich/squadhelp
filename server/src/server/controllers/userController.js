@@ -53,6 +53,19 @@ module.exports.loginUser = async (req, res, next) => {
   }
 };
 
+module.exports.updateUserById = async(req, res, next) => {
+  try{
+      const user = await User.findByPk(req.params.id, {attributes: {exclude: ['password']}});
+      if(!user){
+          return next(new UserNotFoundError());
+      }
+      const result = await user.update(req.body);
+      res.send(result);
+  }catch (e) {
+      next(e);
+  }
+};
+
 module.exports.createUser = (req, res, next) => {
   const { lastName, firstName, email, password, role, isBanned  } = req.body;
   User.create({ lastName, firstName, email, password, role, isBanned })

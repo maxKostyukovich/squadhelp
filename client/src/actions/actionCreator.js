@@ -16,3 +16,9 @@ export const getUserAction = () => ({
 export const getAllUserAction = () => ({
   type: ACTION.GET_ALL_USERS_ADMIN_ACTION,
 });
+
+export const bannedUserAction = (id, isBanned) => ({
+  type:ACTION.BANNED_USER_ACTION,
+  id,
+  isBanned,
+});

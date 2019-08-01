@@ -5,7 +5,11 @@ import UnauthorizedError from '../errorHandlers/UnauthorizedError';
 const RefreshToken = db.RefreshToken;
 import authHelper from '../utils/authHelper';
 
+let isFetching = false;
+
 module.exports.refreshToken = (req, res, next) => {
+  console.log("token try to refresh");
+  isFetching = true;
   const refreshToken = req.body.refreshToken;
   try {
     const payload = jwt.verify(refreshToken, constants.JWT.secret);
@@ -24,10 +28,11 @@ module.exports.refreshToken = (req, res, next) => {
           res.send({ tokenPair: { accessToken, refreshToken: newRefreshToken }});
       })
       .catch((err) => {
-        console.log(err);
+        console.log("error in first catch", err);
         next(err);
       });
   } catch(e){
+    console.log("error in second catch", e);
     if(e instanceof jwt.TokenExpiredError){
       next(new UnauthorizedError('Refresh token expired'));
     } else
