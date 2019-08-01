@@ -3,10 +3,8 @@ import styles from './HeaderTop.module.sass';
 import LoginButton from './LoginButton/LoginButton';
 import connect from 'react-redux/es/connect/connect';
 import { logoutAction } from "../../../../actions/actionCreator";
-
 class HeaderTop extends Component{
     renderLoginButtons(){
-        console.log(this.props.user);
         if(this.props.user.email){
             return (
                 <LoginButton logoutHandler={this.props.logoutAction} link={'/'} text={"Logout"}/>
@@ -45,7 +43,7 @@ const mapStateToProps = (state) => {
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    logoutAction: () => dispatch(logoutAction()),
+    logoutAction: (data) => dispatch(logoutAction(data)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(HeaderTop);

@@ -7,7 +7,6 @@ import connect from 'react-redux/es/connect/connect';
 class MainPage extends Component{
 
     render(){
-        console.log(this.props.isLogin)
         return(
             <div>
                 <Header isLogin={this.props.isLogin}/>

@@ -1,7 +1,6 @@
 import db from '../models';
 import constants from '../../constants';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import InvalidCredentialsError from '../errorHandlers/InvalidCredentialsError';
 import UserNotFoundError from '../errorHandlers/UserNotFoundError';
 import authHelper from '../utils/authHelper';
@@ -21,11 +20,11 @@ module.exports.getUserById = (req, res) => { //function only for testing
 };
 
 module.exports.loginUser = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { password } = req.body;
   let transaction;
   try {
     transaction = await sequelize.transaction();
-      const user = await User.findOne({ where: { email } });
+      const user = req.user;
       if (!user) {
         return next(new UserNotFoundError());
       }
@@ -39,11 +38,9 @@ module.exports.loginUser = async (req, res, next) => {
       if (count >= constants.DEVICES_COUNT) {
         RefreshToken.destroy({ where: { userId: user.id } },  transaction);
       }
-
       await RefreshToken.create({ userId: user.id, tokenString: refreshToken }, { transaction });
       await transaction.commit();
       res.send({ user, tokenPair: { accessToken, refreshToken } });
-
   }catch (e) {
     if(e){
       console.log(e);
@@ -67,8 +64,8 @@ module.exports.updateUserById = async(req, res, next) => {
 };
 
 module.exports.createUser = (req, res, next) => {
-  const { lastName, firstName, email, password, role, isBanned  } = req.body;
-  User.create({ lastName, firstName, email, password, role, isBanned })
+  const { lastName, firstName, email, password, role  } = req.body;
+  User.create({ lastName, firstName, email, password, role })
     .then(user => {
       const accessToken = authHelper.generateAccesToken(user.id);
       const refreshToken = authHelper.generateRefreshToken();
@@ -96,6 +93,7 @@ module.exports.getAllUsers = (req, res, next) => {
         if(!users){
           return next(new UserNotFoundError());
         }
+        users.sort((a,b) => a.id - b.id );
         res.send(users);
       }).catch(err => next(err));
 };

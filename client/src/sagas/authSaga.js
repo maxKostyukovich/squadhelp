@@ -1,6 +1,6 @@
 import { put, call, select } from 'redux-saga/effects';
 import ACTION from '../actions/actiontsTypes';
-import { checkLogin } from '../api/rest/restContoller';
+import { checkLogin, deleteToken } from '../api/rest/restContoller';
 import history from '../history';
 
 export function* checkLoginUser({ data: newUser }){
@@ -14,7 +14,9 @@ export function* checkLoginUser({ data: newUser }){
   }
 }
 
-export function* logout() {
+export function* logout({ data: token }) {
   yield put({type: ACTION.LOGOUT_REQUEST});
   localStorage.clear();
+  const res = yield deleteToken(token);
+  console.log(res);
 }

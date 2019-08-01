@@ -5,8 +5,9 @@ export const loginAction = (data) => ({
   data,
 });
 
-export const logoutAction = () => ({
+export const logoutAction = (data) => ({
   type: ACTION.LOGOUT_ACTION,
+  data,
 });
 
 export const getUserAction = () => ({
