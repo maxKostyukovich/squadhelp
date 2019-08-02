@@ -7,6 +7,7 @@ class Header extends Component{
         return(
             <div className={styles.container}>
                 <h2 className={styles.formTitle}>{this.props.title}</h2>
+                <span className={styles.helpText}>{this.props.text}</span>
             </div>
         );
     }

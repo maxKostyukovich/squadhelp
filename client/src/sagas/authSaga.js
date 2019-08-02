@@ -1,6 +1,7 @@
 import { put, call, select } from 'redux-saga/effects';
 import ACTION from '../actions/actiontsTypes';
 import { checkLogin, deleteToken } from '../api/rest/restContoller';
+import { createUser } from "../api/rest/userController";
 import history from '../history';
 
 export function* checkLoginUser({ data: newUser }){
@@ -19,4 +20,16 @@ export function* logout({ data: token }) {
   localStorage.clear();
   const res = yield deleteToken(token);
   console.log(res);
+}
+
+export function* createUserSaga({ data: user }){
+  const {passwordConformation, ...newUser}  = user;
+  yield put({ type:ACTION.USER_REQUEST });
+  try{
+    const { data } = yield createUser(newUser);
+    yield put({ type: ACTION.USER_RESPONSE, user: data.user });
+    yield call(history.push,'/');
+  } catch(err) {
+      yield put({ type:ACTION.USER_ERROR, error: err });
+  }
 }

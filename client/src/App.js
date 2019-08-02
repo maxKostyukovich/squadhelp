@@ -16,7 +16,7 @@ const App = () => {
             <Switch>
                 <Route path="/" exact component={renderMainPage(MainPage)} />
                 <Route path="/login" component={LoginPage} />
-                <Route path="/signup" componen={SignUpPage} />
+                <Route path="/signup" component={SignUpPage} />
                 <PrivateRoute path={"/admin-panel"} component={renderAdminPage(AdminPage)}/>
                 <Route component={NotFound}/>
             </Switch>

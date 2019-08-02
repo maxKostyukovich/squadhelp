@@ -5,7 +5,7 @@ class SubmitButton extends Component{
 
     render(){
         return(
-            <div >
+            <div className={styles.container}>
                 <div onClick={this.props.onClick} className={styles.button}><span>{this.props.submitText}</span></div>
             </div>
         );

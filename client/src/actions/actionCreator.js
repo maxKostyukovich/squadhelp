@@ -1,5 +1,4 @@
 import ACTION from './actiontsTypes';
-import connect from 'react-redux/es/connect/connect';
 export const loginAction = (data) => ({
   type: ACTION.LOGIN_ACTION,
   data,
@@ -22,4 +21,9 @@ export const bannedUserAction = (id, isBanned) => ({
   type:ACTION.BANNED_USER_ACTION,
   id,
   isBanned,
+});
+
+export const signupAction = (data) => ({
+  type: ACTION.SIGN_UP_ACTION,
+  data,
 });
