@@ -3,6 +3,7 @@ import constants from '../../constants';
 import bcrypt from 'bcrypt';
 import InvalidCredentialsError from '../errorHandlers/InvalidCredentialsError';
 import UserNotFoundError from '../errorHandlers/UserNotFoundError';
+import DBError from '../errorHandlers/DBError';
 import authHelper from '../utils/authHelper';
 import { sequelize } from '../models';
 const Op = db.Sequelize.Op;
@@ -30,7 +31,7 @@ module.exports.loginUser = async (req, res, next) => {
       }
       const isValid = bcrypt.compareSync(password, user.password);
       if (!isValid) {
-        return next(new InvalidCredentialsError());
+        return next(new UserNotFoundError());
       }
       const accessToken = authHelper.generateAccesToken(user.id);
       const refreshToken = authHelper.generateRefreshToken();
@@ -73,7 +74,11 @@ module.exports.createUser = (req, res, next) => {
       res.send({ user, tokenPair:{ accessToken, refreshToken } });
     })
     .catch(err => {
-      next(err);
+     if(err.errors[0].message){
+         next(new DBError(err.errors[0].message))
+     } else{
+         next(err);
+     }
     });
 };
 

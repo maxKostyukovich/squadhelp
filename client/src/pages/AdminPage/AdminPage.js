@@ -20,11 +20,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => {
-    const { users, isFetching, error } = state.userReducer;
+    const { users, isFetching, err } = state.userReducer;
     return {
         users,
         isFetching,
-        error
+        err
     }
 };
 

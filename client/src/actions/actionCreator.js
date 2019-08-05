@@ -25,5 +25,10 @@ export const bannedUserAction = (id, isBanned) => ({
 
 export const signupAction = (data) => ({
   type: ACTION.SIGN_UP_ACTION,
-  data,
+  user:data,
+});
+
+export const resetErrorAction = () => ({
+  type: ACTION.USER_ERROR,
+  err: null,
 });

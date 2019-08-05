@@ -6,6 +6,7 @@ import MainPage from './pages/MainPage/MainPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignUpPage from './pages/SignUpPage/SignUpPage';
 import AdminPage from './pages/AdminPage/AdminPage';
+import ContestTypePage from './pages/ContestTypePage/ContestTypePage';
 import NotFound from './pages/NotFound/NotFound';
 import renderMainPage from './components/HOC/renderMainPage';
 import renderAdminPage from './components/HOC/renderAdminPage';
@@ -18,6 +19,7 @@ const App = () => {
                 <Route path="/login" component={LoginPage} />
                 <Route path="/signup" component={SignUpPage} />
                 <PrivateRoute path={"/admin-panel"} component={renderAdminPage(AdminPage)}/>
+                <Route path={"/contesttype"} component={ContestTypePage}/>
                 <Route component={NotFound}/>
             </Switch>
         </Router>);

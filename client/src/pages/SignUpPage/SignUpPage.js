@@ -9,11 +9,24 @@ import { Field, reduxForm } from 'redux-form';
 import connect from 'react-redux/es/connect/connect';
 import { compose } from 'redux';
 import RadioButton from '../../components/LoginForm/RadioButton/RadioButton';
-import { signupAction } from "../../actions/actionCreator";
+import { signupAction, resetErrorAction } from "../../actions/actionCreator";
 import { ROLE } from "../../constants";
+import toast from '../../utils/toast';
 import SocialButton from "../../components/LoginForm/SocialButtons/SocialButton";
 
 class SignUpPage extends Component{
+    showErrorMessage = () => {
+        if(this.props.err) {
+            toast(this.props.err.message)
+        }
+    };
+    componentDidMount() {
+        this.props.resetErrorAction();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.showErrorMessage()
+    }
 
     render(){
         return(
@@ -27,7 +40,9 @@ class SignUpPage extends Component{
                             <Field name={"firstName"} type={"text"} validate={[validate.isRequireValidation]} label={"First name"} component={TextBox}/>
                             <Field name={"lastName"} validate={[validate.isRequireValidation]} type={"text"} label={"Last name"} component={TextBox}/>
                         </div>
-                        <Field name={"email"} type={"text"} validate={[validate.isRequireValidation, validate.emailValidation]} label={"Email Address"} component={TextBox}/>
+                        <div className={styles.textBoxContainer}>
+                            <Field name={"email"} type={"text"} validate={[validate.isRequireValidation, validate.emailValidation]} label={"Email Address"} component={TextBox}/>
+                        </div>
                         <div className={styles.textBoxContainer}>
                             <Field name={"password"} validate={[validate.passwordValidation, validate.isRequireValidation]} type={"password"} label={"Password"} component={TextBox}/>
                             <Field name={"passwordConformation"} validate={[validate.confirmPasswordValidation, validate.isRequireValidation]} type={"password"} label={"Password Conformation"} component={TextBox}/>
@@ -46,14 +61,15 @@ class SignUpPage extends Component{
 }
 const mapDispatchToProps = (dispatch) => ({
     signupAction: (data) => dispatch(signupAction(data)),
+    resetErrorAction: () => dispatch(resetErrorAction()),
 });
 
 const mapStateToProps = (state) => {
-    const { user, isFetching, error } = state.userReducer;
+    const { user, isFetching, err } = state.userReducer;
     return {
         user,
         isFetching,
-        error,
+        err,
     }
 };
 

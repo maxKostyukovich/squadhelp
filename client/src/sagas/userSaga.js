@@ -10,8 +10,11 @@ export function* getUserSaga() {
     try{
         const { data } = yield getUser();
         yield put({type:ACTION.USER_RESPONSE, user: data});
-    }catch (e) {
-        yield put({type: ACTION.USER_ERROR, error: e})
+    }catch (err) {
+        yield put({type: ACTION.USER_ERROR, err: {
+                message: err.response.data,
+                status: err.response.status,
+            } })
     }
 }
 
@@ -20,8 +23,11 @@ export function* getAllUsersAdmin() {
     try{
         const { data } = yield getAllUsers();
         yield put({type: ACTION.GET_ALL_USERS_ADMIN_RESPONSE, users: data });
-    } catch (e) {
-        yield put({type: ACTION.USER_ERROR, error: e})
+    } catch (err) {
+        yield put({type: ACTION.USER_ERROR, err: {
+            message: err.response.data,
+            status: err.response.status,
+            } })
     }
 }
 
@@ -36,10 +42,14 @@ export function* updateBannedUser({id, isBanned}) {
             yield put({type: ACTION.GET_ALL_USERS_ADMIN_RESPONSE, users: users});
         } else {
             return new Error("No user");
-        }
+
+      }
 
     } catch(err) {
-        return err;
+        yield put({type: ACTION.USER_ERROR, err: {
+                message: err.response.data,
+                status: err.response.status,
+            }})
     }
 
 }

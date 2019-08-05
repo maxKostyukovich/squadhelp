@@ -4,8 +4,10 @@ import styles from './ContestTypePage.module.sass';
 
 function ContestTypePage(props) {
     return (
-      <div className={styles.}>
+      <div >
 
       </div>
     );
 }
+
+export default ContestTypePage;

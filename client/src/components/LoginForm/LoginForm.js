@@ -7,11 +7,21 @@ import TextBox from "./TextBox/TextBox";
 import { Field, reduxForm } from 'redux-form';
 import SubmitButton from './SubmitButton/SubmitButton';
 import SocialButton from './SocialButtons/SocialButton';
-import {loginAction} from "../../actions/actionCreator";
+import { loginAction, resetErrorAction } from "../../actions/actionCreator";
 import connect from 'react-redux/es/connect/connect';
 import { compose } from 'redux';
+import toast from '../../utils/toast';
 
 class LoginForm extends Component{
+componentDidUpdate(prevProps, prevState, snapshot) {
+    if(this.props.err){
+        toast(this.props.err.message);
+    }
+}
+componentDidMount() {
+    this.props.resetErrorAction();
+}
+
     render(){
         return(
             <div className={styles.container}>
@@ -32,14 +42,15 @@ class LoginForm extends Component{
 }
 const mapDispatchToProps = (dispatch) => ({
     loginAction: (data) => dispatch(loginAction(data)),
+    resetErrorAction: () => dispatch(resetErrorAction()),
 });
 
 const mapStateToProps = (state) => {
-    const { user, isFetching, error } = state.userReducer;
+    const { user, isFetching, err } = state.userReducer;
     return {
         user,
         isFetching,
-        error,
+        err,
     }
 };
 

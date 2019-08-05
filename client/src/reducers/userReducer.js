@@ -4,7 +4,7 @@ const initialState = {
     users: [],
     user: {},
     isFetching: false,
-    error: null,
+    err: null,
 };
 
 
@@ -14,14 +14,14 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isFetching: true,
-                error: null,
+                err: null,
             };
         }
         case ACTION.USER_RESPONSE: {
             return {
                 ...state,
                 isFetching: false,
-                error: null,
+                err: null,
                 user: action.user
             };
         }
@@ -29,7 +29,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isFetching: false,
-                error: action.error,
+                err: action.err,
             };
         }
         case ACTION.LOGOUT_REQUEST: {
@@ -42,7 +42,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isFetching:false,
-                error: null,
+                err: null,
                 users: action.users,
             }
         }

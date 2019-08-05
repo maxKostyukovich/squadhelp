@@ -12,7 +12,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isFetching: true,
-                error: null,
+                err: null,
             }
         }
         case ACTION.SELECT_USER_IN_LIST_RESPONSE: {
@@ -20,13 +20,13 @@ export default function (state = initialState, action) {
                 ...state,
                 isFetching: false,
                 selectedUsers: action.users,
-                error:null,
+                err:null,
             }
         }
         case ACTION.SELECT_USER_IN_LIST_ERROR: {
             return {
                 ...state,
-                error: action.error,
+                err: action.err,
             }
         }
     }

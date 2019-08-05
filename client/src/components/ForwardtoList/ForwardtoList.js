@@ -19,15 +19,6 @@ class ForwardtoList extends Component {
 
     onCheckBoxClickHandler(user){
         this.props.bannedUserAction(user.id, user.isBanned);
-
-        // const newUsers = _.cloneDeep(this.props.users);
-        // const indexSelectedUser = this.findIndexUserById(newUsers,user.id);
-        // if(indexSelectedUser>-1){
-        //     newUsers[indexSelectedUser].isBanned = !newUsers[indexSelectedUser].isBanned;
-        // }
-        // //this.setState({users: newUsers});
-        // const selected = newUsers.filter(u => u.isBanned );
-        // this.setState({selectedUsers: selected});
     }
     render(){
         if(this.props.error){
@@ -43,9 +34,9 @@ class ForwardtoList extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { users, error } = state.userReducer;
+    const { users, err } = state.userReducer;
     return {
-        error,
+        err,
         users,
     }
 };
