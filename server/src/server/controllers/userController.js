@@ -1,7 +1,6 @@
 import db from '../models';
 import constants from '../../constants';
 import bcrypt from 'bcrypt';
-import InvalidCredentialsError from '../errorHandlers/InvalidCredentialsError';
 import UserNotFoundError from '../errorHandlers/UserNotFoundError';
 import DBError from '../errorHandlers/DBError';
 import authHelper from '../utils/authHelper';
@@ -44,7 +43,6 @@ module.exports.loginUser = async (req, res, next) => {
       res.send({ user, tokenPair: { accessToken, refreshToken } });
   }catch (e) {
     if(e){
-      console.log(e);
       await transaction.rollback();
       next(e);
     }
