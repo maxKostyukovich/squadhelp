@@ -8,8 +8,10 @@ class HeaderBottom extends Component{
         return(
             <div className={styles.container}>
                 <div className={styles.wrap}>
+                    <Link to={{pathname: '/',query: {id: "Hi"}}}>
                         <img alt="logo" src={"https://www.squadhelp.com/images/squadhelp-logo-color.jpg"}/>
-                    <Link to={'/contesttype'}>
+                    </Link>
+                    <Link to={{pathname: '/contesttype',query: {id: "Hi"}}}>
                         <ContestButton text={"START CONTEST"}/>
                     </Link>
                 </div>

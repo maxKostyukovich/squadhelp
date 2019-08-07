@@ -19,5 +19,6 @@ router.put('/user/:id', userController.updateUserById);
 router.post('/refresh', tokenController.refreshToken);//route for refresh
 router.delete('/refresh', tokenController.deleteToken);
 
+router.post('')
 module.exports = router;
 
