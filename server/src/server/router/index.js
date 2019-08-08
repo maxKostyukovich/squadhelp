@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import express from 'express';
 import userController from '../controllers/userController';
 import tokenController from '../controllers/tokenController';
+import contestController from '../controllers/contestController';
 import cryptMiddleware from '../middle/cryptMiddleware';
 import validationMiddleware from '../middle/validationMiddleware';
 import getUserByEmail from '../middle/findUserMiddleware';
@@ -19,6 +20,7 @@ router.put('/user/:id', userController.updateUserById);
 router.post('/refresh', tokenController.refreshToken);//route for refresh
 router.delete('/refresh', tokenController.deleteToken);
 
-router.post('')
+router.post('/bundle',authMiddleware, contestController.createBundle);
+router.get('/bundle/:id', contestController.getBundle);
 module.exports = router;
 

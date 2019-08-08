@@ -5,14 +5,15 @@ export default function InputRadio({ input, type, meta, ...props}) {
     return (
         <div className={styles.wrap}>
         <div className={styles.container}>
-            <label className={styles.title} htmlFor={props.id}>
-                {props.title}
-                <span>
+            <input type={type} className={styles.inputRadio} id={props.id} {...input}/>
+            <div className={styles.label}>
+                <span className={styles.title}>
+                     {props.title}
+                </span>
+                <span className={styles.description}>
                     {props.description}
                 </span>
-            </label>
-            <input type={type} className={styles.inputRadio} id={props.id} {...input}/>
-
+            </div>
         </div>
         </div>
     );

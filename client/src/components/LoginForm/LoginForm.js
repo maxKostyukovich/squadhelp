@@ -10,7 +10,7 @@ import SocialButton from './SocialButtons/SocialButton';
 import { loginAction, resetErrorAction } from "../../actions/actionCreator";
 import connect from 'react-redux/es/connect/connect';
 import { compose } from 'redux';
-import toast from '../../utils/toast';
+import {toast, clearToast } from '../../utils/toast';
 
 class LoginForm extends Component{
 componentDidUpdate(prevProps, prevState, snapshot) {
@@ -20,6 +20,9 @@ componentDidUpdate(prevProps, prevState, snapshot) {
 }
 componentDidMount() {
     this.props.resetErrorAction();
+}
+componentWillUnmount() {
+    clearToast();
 }
 
     render(){

@@ -1,7 +1,7 @@
 import toastr from "toastr";
 import 'toastr/build/toastr.min.css'
 
-export default function toast(message) {
+export function toast(message) {
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -20,4 +20,7 @@ export default function toast(message) {
         "hideMethod": "fadeOut"
     };
     toastr["error"](message);
+}
+export function clearToast() {
+    toastr.clear();
 }

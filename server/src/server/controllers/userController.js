@@ -25,8 +25,8 @@ module.exports.loginUser = async (req, res, next) => {
   try {
     transaction = await sequelize.transaction();
       const user = req.user;
-      if (!user) {
-        return next(new UserNotFoundError());
+      if(user.isBanned){
+          return next(new UserNotFoundError("User is Banned"));
       }
       const isValid = bcrypt.compareSync(password, user.password);
       if (!isValid) {

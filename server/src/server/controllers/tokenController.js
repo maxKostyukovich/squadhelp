@@ -25,20 +25,6 @@ module.exports.refreshToken = async (req, res, next) => {
     await RefreshToken.destroy({ where: { id: token.id }}, transaction);
     await transaction.commit();
     res.send({ tokenPair: { accessToken, refreshToken: newRefreshToken }});
-    // RefreshToken.findOne({ where: { tokenString: refreshToken } })
-    //   .then(token => {
-    //     if(!token) {
-    //       return next(new UnauthorizedError('Invalid refresh token'));
-    //     }
-    //       const accessToken = authHelper.generateAccesToken(token.userId);
-    //       const newRefreshToken = authHelper.generateRefreshToken();
-    //       RefreshToken.create({ userId: token.userId, tokenString: newRefreshToken });
-    //       RefreshToken.destroy({ where: { id: token.id } });//TODO create transactions
-    //       res.send({ tokenPair: { accessToken, refreshToken: newRefreshToken }});
-    //   })
-    //   .catch((err) => {
-    //     next(err);
-    //   });
   } catch(e){
     await transaction.rollback();
     if(e instanceof jwt.TokenExpiredError){

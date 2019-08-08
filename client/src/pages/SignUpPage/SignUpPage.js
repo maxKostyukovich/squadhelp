@@ -11,7 +11,7 @@ import { compose } from 'redux';
 import RadioButton from '../../components/LoginForm/RadioButton/RadioButton';
 import { signupAction, resetErrorAction } from "../../actions/actionCreator";
 import { ROLE } from "../../constants";
-import toast from '../../utils/toast';
+import {toast, clearToast } from '../../utils/toast';
 import SocialButton from "../../components/LoginForm/SocialButtons/SocialButton";
 
 class SignUpPage extends Component{
@@ -22,6 +22,9 @@ class SignUpPage extends Component{
     };
     componentDidMount() {
         this.props.resetErrorAction();
+    }
+    componentWillUnmount() {
+        clearToast();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {

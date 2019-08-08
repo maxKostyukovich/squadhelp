@@ -1,21 +1,3 @@
-// import {getUserAction} from '../../actions/actionCreator';
-// import connect from 'react-redux/es/connect/connect';
-// const renderMainPage = (props) => {
-//     console.log(props);
-// };
-//
-// const mapStateToProps = (state) => {
-//     const { user } = state.userReducer();
-//     return {
-//         user,
-//     }
-// };
-// const mapDispatchToProps = (dispatch) => ({
-//     getUserAction: () => dispatch(getUserAction()),
-// });
-//
-// export default connect(mapStateToProps,mapDispatchToProps)(renderMainPage);
-
 import  React, { Component }  from 'react';
 import connect from 'react-redux/es/connect/connect';
 import {getUserAction} from '../../actions/actionCreator';

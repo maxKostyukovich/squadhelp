@@ -18,10 +18,24 @@ const ROLES = {
   ADMIN: "ADMIN"
 };
 const ACTIONS = {
-  GET: {
-    USER: "USER",
+  CREAT: {
+    CONTEST: "CREATE_CONTEST",
   },
-  POST: {
+  UPDATE: {
+    CONTEST: "UPDATE_CONTEST",
+    USER: "UPDATE_USER",
+  },
+  READ: {
+    USER: {
+      ONE_USER: "READ_USER",
+      ALL_USERS: "READ_ALL_USERS",
+    },
+    CONTEST: {
+      ONE_CONTEST: "READ_CONTEST",
+    }
+  },
+  DELETE: {
+
   }
 };
 const SALT = 10;
