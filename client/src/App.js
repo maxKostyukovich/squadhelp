@@ -19,7 +19,7 @@ const App = () => {
                 <Route path="/login" component={LoginPage} />
                 <Route path="/signup" component={SignUpPage} />
                 <PrivateRoute path={"/admin-panel"} component={renderAdminPage(AdminPage)}/>
-                <Route path={"/contesttype"} component={ContestTypePage}/>
+                <Route path={"/contesttype"} component={renderMainPage(ContestTypePage)}/>
                 <Route component={NotFound}/>
             </Switch>
         </Router>);

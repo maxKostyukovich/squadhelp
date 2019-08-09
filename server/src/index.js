@@ -2,7 +2,6 @@ import express from 'express';
 import router from './server/router/index';
 import cors from 'cors';
 import constants from '../src/constants';
-import ApplicationError from './server/errorHandlers/ApplicationError';
 
 const app = express();
 
@@ -18,7 +17,7 @@ app.use((err, req, res, next)=>{
     res.status(500).send(err.message);
   }
 });
-console.log(constants.PORT);
+
 app.listen(constants.PORT);
 
 

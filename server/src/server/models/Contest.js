@@ -81,7 +81,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Contest.associate = function (models) {
-        Contest.belongsTo(models.Contest, { foreignKey: 'bundleId', targetKey: 'id' });
+        Contest.belongsTo(models.Contest, { foreignKey: 'bundleId', sourceKey: 'id' });
     };
 
     return Contest;

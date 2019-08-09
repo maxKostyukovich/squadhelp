@@ -5,9 +5,10 @@ const User = db.User;
 module.exports = async (req, res, next) => {
   const { email } = req.body;
   const user = await User.findOne({where: { email }});
-  if(!user){
-      return next(new UserNotFound());
+  if (user) {
+    req.user = user;
+    next();
+  } else {
+    return next(new UserNotFound());
   }
-  req.user = user;
-  next();
 };

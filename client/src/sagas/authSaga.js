@@ -21,7 +21,7 @@ export function* checkLoginUser({ data: newUser }){
 export function* logout({ data: token }) {
   yield put({type: ACTION.LOGOUT_REQUEST});
   localStorage.clear();
-  const res = yield deleteToken(token);
+ yield deleteToken(token);
 }
 
 export function* createUserSaga({ user }){
@@ -32,7 +32,6 @@ export function* createUserSaga({ user }){
       yield put({type: ACTION.USER_RESPONSE, user: data.user});
       yield call(history.push, '/');
   } catch(err) {
-    console.log("in catch");
       yield put({ type: ACTION.USER_ERROR, err: {
         message: err.response.data,
         status:err.response.status,

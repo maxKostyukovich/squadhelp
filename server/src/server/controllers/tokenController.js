@@ -40,13 +40,9 @@ module.exports.refreshToken = async (req, res, next) => {
 
 module.exports.deleteToken = async (req, res, next) => {
   const token = req.body.refreshToken;
-  let result;
   try {
-    const tokenObject = await RefreshToken.findOne({where: {tokenString: token}});
-    if(tokenObject){
-       result = RefreshToken.destroy({ where: { id: tokenObject.id } });
-    }
-    res.send(result);
+    await RefreshToken.destroy({where: {tokenString: token}});
+    res.send("OK");
   } catch (err) {
     next(err);
   }

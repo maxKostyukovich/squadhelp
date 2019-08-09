@@ -50,16 +50,9 @@ module.exports.loginUser = async (req, res, next) => {
 };
 
 module.exports.updateUserById = async(req, res, next) => {
-  try{
-      const user = await User.findByPk(req.params.id, {attributes: {exclude: ['password']}});
-      if(!user){
-          return next(new UserNotFoundError());
-      }
-      const result = await user.update(req.body);
-      res.send(result);
-  }catch (e) {
-      next(e);
-  }
+      const [, [result]] = await user.update(req.body);
+      res.send(result.dataValues);
+
 };
 
 module.exports.createUser = (req, res, next) => {
@@ -91,12 +84,8 @@ module.exports.getUser = (req, res, next) => {
 };
 
 module.exports.getAllUsers = (req, res, next) => {
-  User.findAll({where: {role:{[Op.ne]: "ADMIN"}}})
+  User.findAll({where: {role:{[Op.ne]: constants.ROLES.ADMIN}}, order: [['id', 'ASC']]})
       .then(users =>{
-        if(!users){
-          return next(new UserNotFoundError());
-        }
-        users.sort((a,b) => a.id - b.id );
         res.send(users);
       }).catch(err => next(err));
 };

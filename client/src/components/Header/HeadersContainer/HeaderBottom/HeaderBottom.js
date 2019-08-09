@@ -12,7 +12,7 @@ class HeaderBottom extends Component{
                     <Link to={'/'}>
                         <img alt="logo" src={"https://www.squadhelp.com/images/squadhelp-logo-color.jpg"}/>
                     </Link>
-                    <Link to={{pathname: '/contesttype', search: queryString.stringify({id: 12})}}>
+                    <Link to={{pathname: '/contesttype'}}>
                         <ContestButton text={"START CONTEST"}/>
                     </Link>
                 </div>

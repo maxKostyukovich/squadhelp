@@ -26,8 +26,8 @@ class ForwardtoList extends Component {
         }
         return(
           <div className={styles.container}>
-
               <List clickHandler={this.onCheckBoxClickHandler} />
+
           </div>
         );
     }
