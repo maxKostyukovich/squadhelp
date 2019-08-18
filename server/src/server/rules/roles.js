@@ -5,7 +5,7 @@ class RoleHelper {
         this.others = others;
     }
 }
-
+//Hello world
 const ACCESS = new Map([
     [
         constants.ACTIONS.CREAT.CONTEST, new Map([

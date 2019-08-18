@@ -24,23 +24,23 @@ module.exports.loginUser = async (req, res, next) => {
   let transaction;
   try {
     transaction = await sequelize.transaction();
-      const user = req.user;
-      if(user.isBanned){
-          return next(new UserNotFoundError("User is Banned"));
-      }
-      const isValid = bcrypt.compareSync(password, user.password);
-      if (!isValid) {
-        return next(new UserNotFoundError());
-      }
-      const accessToken = authHelper.generateAccesToken(user.id);
-      const refreshToken = authHelper.generateRefreshToken();
-      const count = await RefreshToken.count({ where:{ userId: user.id } });
-      if (count >= constants.DEVICES_COUNT) {
-        RefreshToken.destroy({ where: { userId: user.id } },  transaction);
-      }
-      await RefreshToken.create({ userId: user.id, tokenString: refreshToken }, { transaction });
-      await transaction.commit();
-      res.send({ user, tokenPair: { accessToken, refreshToken } });
+    const user = req.user;
+    if(user.isBanned){
+      return next(new UserNotFoundError('User is Banned'));
+    }
+    const isValid = bcrypt.compareSync(password, user.password);
+    if (!isValid) {
+      return next(new UserNotFoundError());
+    }
+    const accessToken = authHelper.generateAccesToken(user.id);
+    const refreshToken = authHelper.generateRefreshToken();
+    const count = await RefreshToken.count({ where:{ userId: user.id } });
+    if (count >= constants.DEVICES_COUNT) {
+      RefreshToken.destroy({ where: { userId: user.id } },  transaction);
+    }
+    await RefreshToken.create({ userId: user.id, tokenString: refreshToken }, { transaction });
+    await transaction.commit();
+    res.send({ user, tokenPair: { accessToken, refreshToken } });
   }catch (e) {
     if(e){
       await transaction.rollback();
@@ -50,8 +50,9 @@ module.exports.loginUser = async (req, res, next) => {
 };
 
 module.exports.updateUserById = async(req, res, next) => {
-      const [, [result]] = await user.update(req.body);
-      res.send(result.dataValues);
+
+  const [, [result]] = await User.update(req.body);
+  res.send(result.dataValues);
 
 };
 
@@ -65,16 +66,16 @@ module.exports.createUser = (req, res, next) => {
       res.send({ user, tokenPair:{ accessToken, refreshToken } });
     })
     .catch(err => {
-     if(err.errors[0].message){
-         next(new DBError(err.errors[0].message))
-     } else{
-         next(err);
-     }
+      if(err.errors[0].message){
+        next(new DBError(err.errors[0].message));
+      } else{
+        next(err);
+      }
     });
 };
 
 module.exports.getUser = (req, res, next) => {
-  User.findByPk(req.userId,{attributes: { exclude: ['password'] }})
+  User.findByPk(req.userId, { attributes: { exclude: ['password'] } })
     .then(user =>{
       if(!user){
         return next(new UserNotFoundError());
@@ -83,9 +84,10 @@ module.exports.getUser = (req, res, next) => {
     }).catch(err => next(err));
 };
 
-module.exports.getAllUsers = (req, res, next) => {
-  User.findAll({where: {role:{[Op.ne]: constants.ROLES.ADMIN}}, order: [['id', 'ASC']]})
-      .then(users =>{
-        res.send(users);
-      }).catch(err => next(err));
+module.exports.getAllUsers = async (req, res, next) => {
+  const users = await User.findAll({ where: { role:{ [Op.ne]: constants.ROLES.ADMIN } }, order: [['id', 'ASC']] });
+  const filterUsers = await users.map(value => {
+    const  { firstName, lastName, isBanned, role } = value.dataValues;
+    return { firstName, lastName, isBanned, role };});
+  res.send(filterUsers);
 };
