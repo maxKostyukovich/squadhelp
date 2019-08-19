@@ -10,7 +10,6 @@ import isUserBanned from '../middle/isBannedMiddleware';
 import authMiddleware from '../middle/authMiddleware';
 const router = express.Router();
 
-//router.get('/user/:id', userController.getUserById);
 router.post('/login', validationMiddleware.validationOnLogin, getUserByEmail, isUserBanned, userController.loginUser); //route for login
 router.post('/user', validationMiddleware.validationOnCreateUser, cryptMiddleware, userController.createUser); //route for creating user
 router.get('/user', authMiddleware, userController.getUser);

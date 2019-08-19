@@ -19,12 +19,11 @@ module.exports.refreshToken = async (req, res, next) => {
     if(!token){
       return next(new UnauthorizedError('Invalid refresh token'))
     }
-    const accessToken = authHelper.generateAccesToken(token.userId);
-    const newRefreshToken = authHelper.generateRefreshToken();
-    await RefreshToken.create({ userId: token.userId, tokenString: newRefreshToken }, { transaction });
+    const { tokenPair } = authHelper.generateTokenPair(token.userId);
+    await RefreshToken.create({ userId: token.userId, tokenString: tokenPair.refreshToken }, { transaction });
     await RefreshToken.destroy({ where: { id: token.id }}, transaction);
     await transaction.commit();
-    res.send({ tokenPair: { accessToken, refreshToken: newRefreshToken }});
+    res.send({ tokenPair });
   } catch(e){
     await transaction.rollback();
     if(e instanceof jwt.TokenExpiredError){

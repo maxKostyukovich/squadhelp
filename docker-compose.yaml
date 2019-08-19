@@ -10,7 +10,7 @@ services:
     depends_on:
       - server-dev
     volumes:
-
+      - ./client:/client
       - /client/node_modules
     ports:
       - "5000:5000"
@@ -28,6 +28,7 @@ services:
       - db-dev
     volumes:
       - ./var/www/html/images:/var/www/html/images
+      - ./server:/server
       - /server/node_modules
 
   db-dev:

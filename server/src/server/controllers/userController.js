@@ -9,16 +9,6 @@ const Op = db.Sequelize.Op;
 const User = db.User;
 const RefreshToken = db.RefreshToken;
 
-module.exports.getUserById = (req, res) => { //function only for testing
-  User.findById(req.params.id)
-    .then(user => {
-      res.send(user);
-    })
-    .catch(err =>{
-      res.send(err.message);
-    });
-};
-
 module.exports.loginUser = async (req, res, next) => {
   const { password } = req.body;
   let transaction;
@@ -32,15 +22,14 @@ module.exports.loginUser = async (req, res, next) => {
     if (!isValid) {
       return next(new UserNotFoundError());
     }
-    const accessToken = authHelper.generateAccesToken(user.id);
-    const refreshToken = authHelper.generateRefreshToken();
+    const { tokenPair } = authHelper.generateTokenPair(user.id);
     const count = await RefreshToken.count({ where:{ userId: user.id } });
     if (count >= constants.DEVICES_COUNT) {
       RefreshToken.destroy({ where: { userId: user.id } },  transaction);
     }
-    await RefreshToken.create({ userId: user.id, tokenString: refreshToken }, { transaction });
+    await RefreshToken.create({ userId: user.id, tokenString: tokenPair.refreshToken }, { transaction });
     await transaction.commit();
-    res.send({ user, tokenPair: { accessToken, refreshToken } });
+    res.send({ user, tokenPair });
   }catch (e) {
     if(e){
       await transaction.rollback();
@@ -50,7 +39,6 @@ module.exports.loginUser = async (req, res, next) => {
 };
 
 module.exports.updateUserById = async(req, res, next) => {
-
   const [, [result]] = await User.update(req.body);
   res.send(result.dataValues);
 
@@ -60,10 +48,9 @@ module.exports.createUser = (req, res, next) => {
   const { lastName, firstName, email, password, role  } = req.body;
   User.create({ lastName, firstName, email, password, role })
     .then(user => {
-      const accessToken = authHelper.generateAccesToken(user.id);
-      const refreshToken = authHelper.generateRefreshToken();
-      RefreshToken.create({ userId: user.id, tokenString: refreshToken });
-      res.send({ user, tokenPair:{ accessToken, refreshToken } });
+      const { tokenPair } = authHelper.generateTokenPair(user.id);
+      RefreshToken.create({ userId: user.id, tokenString: tokenPair.refreshToken });
+      res.send({ user, tokenPair });
     })
     .catch(err => {
       if(err.errors[0].message){
@@ -88,6 +75,7 @@ module.exports.getAllUsers = async (req, res, next) => {
   const users = await User.findAll({ where: { role:{ [Op.ne]: constants.ROLES.ADMIN } }, order: [['id', 'ASC']] });
   const filterUsers = await users.map(value => {
     const  { firstName, lastName, isBanned, role } = value.dataValues;
-    return { firstName, lastName, isBanned, role };});
+    return { firstName, lastName, isBanned, role };
+  });
   res.send(filterUsers);
 };
