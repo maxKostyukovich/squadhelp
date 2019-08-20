@@ -3,11 +3,14 @@ import styles from './HeaderTop.module.sass';
 import LoginButton from './LoginButton/LoginButton';
 import connect from 'react-redux/es/connect/connect';
 import { logoutAction } from "../../../../actions/actionCreator";
+import HeaderUserNavigation from './HeaderUserNavigation/HeaderUserNavigation';
 class HeaderTop extends Component{
     renderLoginButtons(){
         if(this.props.user.email){
             return (
-                <LoginButton logoutHandler={this.props.logoutAction} link={'/'} text={"Logout"}/>
+              <>
+                <HeaderUserNavigation/>
+                  </>
             );
         } else {
                     return(

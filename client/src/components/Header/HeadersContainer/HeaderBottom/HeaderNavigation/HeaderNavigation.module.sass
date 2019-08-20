@@ -1,16 +1,58 @@
 .container
-  ul
+  padding-right: 45px
+  @media screen and (max-width: 800px)
+    padding-right: 5px
+    .item
+      margin: 0 3px
+  .navigation
+    position: relative
     display: flex
     flex-direction: row
     list-style-type: none
-    padding-right: 25px
-    li
+    .item
       margin: 0 10px
       color: #495d8b
       font-size: 16px
-    @media screen and (max-width: 800px)
-      padding-right: 5px
-      li
-        margin: 0 3px
+      display: flex
+      flex-direction: row
+      justify-content: center
+      &:hover
+        span
+          color: #f27e51
 
+.dropDownList
+  position: absolute
+  z-index: 11
+  display: none
+  ul
+    top: 15px
+    position: relative
+    display: flex
+    flex-direction: column
+    list-style-type: none
+    border: 1px solid #dadada
+    min-width: 160px
+    background-color: white
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1)
+    li
+      font-size: 14px
+      width: 100%
+      padding: 10px 15px
+      white-space: nowrap
+      color: #333333
+      &:hover
+        background-color: #cacaca
 
+.hoverWrap
+  &:hover
+    .dropDownList
+      display: block
+.arrow
+  content: ''
+  display: inline-block
+  border-left: 7px solid transparent
+  border-right: 7px solid transparent
+  border-bottom: 7px solid #ccc
+  position: absolute
+  top: 10px
+  left: 30px

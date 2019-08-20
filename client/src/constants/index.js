@@ -10,3 +10,5 @@ export const ROLE = {
     CREATIVE: 'CREATIVE',
     ADMIN: 'ADMIN',
 };
+
+export const defaultSmallImgProfile = "https://www.squadhelp.com/assets/nimages/compressed/anonumous-min.png";

@@ -12,7 +12,7 @@ handler() {
 }
     render(){
         return(
-            <div onClick={this.props.logoutHandler? this.handler: console.log("not logout")} className={styles.container}>
+            <div onClick={this.props.logoutHandler? this.handler: null} className={styles.container}>
                 <Link className={styles.link} to={this.props.link}>{this.props.text}</Link>
             </div>
         );

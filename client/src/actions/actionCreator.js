@@ -32,3 +32,7 @@ export const resetErrorAction = () => ({
   type: ACTION.USER_ERROR,
   err: null,
 });
+export const dropDownMenuAction = (isActive) => ({
+  type: ACTION.DROP_DOWN_CLICK,
+  isActive,
+});
