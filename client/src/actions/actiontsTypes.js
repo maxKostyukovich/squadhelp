@@ -30,4 +30,5 @@ export default {
   SIGN_UP_ACTION: "SIGN_UP_ACTION",
 
   DROP_DOWN_CLICK: "DROP_DOWN_CLICK",
+  OUT_CLICK: 'OUT_CLICK',
 };

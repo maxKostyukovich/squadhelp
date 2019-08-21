@@ -12,6 +12,12 @@ export default function (state = initialState, action) {
         headerMenuState: action.isActive,
       };
     }
+    case ACTION.OUT_CLICK: {
+      return {
+        ...state,
+        ...initialState,
+      }
+    }
     default: {
       return state;
     }

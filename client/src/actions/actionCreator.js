@@ -36,3 +36,7 @@ export const dropDownMenuAction = (isActive) => ({
   type: ACTION.DROP_DOWN_CLICK,
   isActive,
 });
+
+export const outClickAction = () => ({
+  type: ACTION.OUT_CLICK,
+});

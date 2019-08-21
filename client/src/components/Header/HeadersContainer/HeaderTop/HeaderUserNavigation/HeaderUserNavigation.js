@@ -1,18 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './HeaderUserNavigation.module.sass'
 import connect from 'react-redux/es/connect/connect';
 import { userDropList } from '../../../../../constants/headerText';
-import {logoutAction, dropDownMenuAction} from "../../../../../actions/actionCreator";
+import {logoutAction, dropDownMenuAction, outClickAction} from "../../../../../actions/actionCreator";
 import {STORAGE_KEYS, defaultSmallImgProfile} from "../../../../../constants";
 import { Link } from 'react-router-dom'
 
-function HeaderUserNavigation(props) {
-  const renderDropList = () => {
+class HeaderUserNavigation extends React.Component {
+  constructor(props){
+    super(props);
+    this.toggleContainer = React.createRef();
+  }
+  clickHandler = () => {
+    this.props.dropDownMenuAction(!this.props.headerMenuState);
+  };
+  outClickHandler = (e) => {
+    if(this.props.headerMenuState && !this.toggleContainer.current.contains(e.target))
+    this.props.outClickAction();
+  };
+  renderDropList = () => {
     return userDropList.map(value => {
       return(
-        <div className={styles.item}>
+        <div key={value.text}>
           <Link to={value.to}>
-            <li onClick={value.text === "Logout"? () => props.loginAction(localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN_TYPE)):null}>
+            <li onClick={value.text === "Logout"? () => this.props.logoutAction(localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN_TYPE)):null}>
               <span>{value.text}</span>
             </li>
           </Link>
@@ -21,29 +32,46 @@ function HeaderUserNavigation(props) {
     })
   };
 
-  return(
-   <div className={styles.container}>
-     <img src={defaultSmallImgProfile} alt={"Profile photo"} />
-     <span>Hi, {props.user.firstName}</span>
-     <div className={styles.wrapperList}>
-        <ul>
-          {renderDropList()}
-        </ul>
-     </div>
-   </div>
-  )
+  componentDidMount() {
+    window.addEventListener('click', this.outClickHandler)
+  }
+  componentWillUnmount() {
+    window.removeEventListener('click', this.outClickHandler);
+  }
+  render(){
+    return(
+      <div  ref={this.toggleContainer} className={styles.container} onClick={this.clickHandler}>
+        <div className={styles.center}>
+          <img src={defaultSmallImgProfile} alt={"Profile photo"} />
+          <span>Hi, {this.props.user.firstName}</span>
+          <i className="fas fa-angle-down" style={{opacity: "0.3",marginLeft: "3px"}}></i>
+        </div>
+        {this.props.headerMenuState && (
+          <div className={styles.wrapperList}>
+            <ul>
+              {this.renderDropList()}
+            </ul>
+          </div>
+        )}
+      </div>
+    )
+  }
+
 }
 
 const mapStateToProps = (state) => {
   const { user } = state.userReducer;
+  const { headerMenuState } = state.flagsReducer;
   return {
     user,
+    headerMenuState,
   }
 };
 
 const mapDispatchToProps = (dispatch) => ({
   logoutAction: (data) => dispatch(logoutAction(data)),
   dropDownMenuAction: (isActive) => dispatch(dropDownMenuAction(isActive)),
+  outClickAction: () => dispatch(outClickAction()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderUserNavigation)

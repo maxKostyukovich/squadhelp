@@ -8,17 +8,18 @@ class HeaderTop extends Component{
     renderLoginButtons(){
         if(this.props.user.email){
             return (
-              <>
+              <div style={{display: 'flex',paddingRight: '10px'}}>
                 <HeaderUserNavigation/>
-                  </>
+                <LoginButton link={'/'} text={<i className="far fa-envelope" style={{opacity: "0.5",marginLeft: "3px"}}></i>}/>
+              </div>
             );
         } else {
-                    return(
-                        <>
-                        <LoginButton link="/login/" text={"Login"}/>
-                        <LoginButton link="/signup/" text={"Sign up"}/>
-                        </>
-                    );
+                return(
+                    <>
+                    <LoginButton link="/login/" text={"Login"}/>
+                    <LoginButton link="/signup/" text={"Sign up"}/>
+                    </>
+                );
         }
     }
 
@@ -33,6 +34,9 @@ class HeaderTop extends Component{
                     </div>
                     <div className={styles.loginContainer}>
                         {this.renderLoginButtons()}
+                        <div>
+                            <i className="fas fa-bars"></i>
+                        </div>
                     </div>
                 </div>
             </div>
