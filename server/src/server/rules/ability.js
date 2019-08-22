@@ -1,36 +1,44 @@
 import { AbilityBuilder, Ability } from '@casl/ability';
-import constants from '../../constants';
+import { ACTIONS, ROLES } from '../../constants';
 
-Ability.addAlias('modify', ['update', 'delete']);
-Ability.addAlias('crud', ['update', 'delete', 'create', 'read']);
+Ability.addAlias('modify', [ACTIONS.UPDATE, ACTIONS.DELETE]);
+Ability.addAlias('crud', [ACTIONS.UPDATE, ACTIONS.DELETE, ACTIONS.READ, ACTIONS.CREATE]);
 
 function adminAbility(user) {
   return AbilityBuilder.define((can, cannot) => {
     can('modify', 'User');
-    cannot('modify', 'User', { role: constants.ROLES.ADMIN });
-    can('update', 'User', { id: user.id });
-    cannot('update', 'User', 'isBanned');
-    can('read', 'all');
+    cannot('modify', 'User', { role: ROLES.ADMIN });
+    can(ACTIONS.UPDATE, 'User', { id: user.id });
+    can(ACTIONS.READ, 'all');
 
-    can(['modify', 'read'], 'Bundle');
-    can('read', 'Contest');
+    can(['modify', ACTIONS.DELETE], 'Bundle');
+    can(ACTIONS.READ, 'Contest');
   });
 }
-function buyerCreativeAbility(user) {
+
+function buyerAbility(user) {
   return AbilityBuilder.define((can, cannot) => {
-    can('create', 'User');
-    can(['update', 'read'], 'User', { id: user.id });
-    cannot('update', 'User', 'isBanned');
+    can(ACTIONS.CREATE, 'User');
+    can([ACTIONS.UPDATE, ACTIONS.READ], 'User', { id: user.id });
+    cannot(ACTIONS.UPDATE, 'User', ['isBanned', 'role']);
 
-    if(user.role === constants.ROLES.BUYER) {
-        can('crud', 'Bundle', { userId: user.id });
-        can('create', ['Bundle', 'Contest']);
-    }
+    can('crud', 'Bundle', { userId: user.id });
+    can(ACTIONS.CREATE, ['Bundle', 'Contest']);
 
-    if(user.role === constants.ROLES.CREATIVE){
-        cannot(['modify', 'create'],['Bundle', 'Contest']);
-        can('read', ['Bundle', 'Contest']);
+    if(user.isBanned) {
+      cannot('crud', 'all');
     }
+  });
+}
+
+function creativeAbility(user) {
+  return AbilityBuilder.define((can, cannot) => {
+    can(ACTIONS.READ, 'User');
+    can([ACTIONS.UPDATE, ACTIONS.READ], 'User', { id: user.id });
+    cannot(ACTIONS.UPDATE, 'User', ['isBanned','role']);
+
+    cannot(['modify', ACTIONS.CREATE],['Bundle', 'Contest']);
+    can(ACTIONS.READ, ['Bundle', 'Contest']);
     if(user.isBanned) {
       cannot('crud', 'all');
     }
@@ -39,6 +47,7 @@ function buyerCreativeAbility(user) {
 
 module.exports = {
   adminAbility,
-  buyerCreativeAbility,
+  creativeAbility,
+  buyerAbility,
 };
 

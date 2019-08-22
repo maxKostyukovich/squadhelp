@@ -2,6 +2,7 @@ import React , { Component } from 'react';
 import styles from './HeaderBottom.module.sass';
 import { Link } from 'react-router-dom';
 import ContestButton from './ContestButton/ContestButton';
+import { squadLogo } from '../../../../constants/index'
 import queryString from 'query-string'
 import HeaderNavigation from "./HeaderNavigation/HeaderNavigation";
 class HeaderBottom extends Component{
@@ -11,7 +12,7 @@ class HeaderBottom extends Component{
             <div className={styles.container}>
                 <div className={styles.wrap}>
                     <Link to={'/'}>
-                        <img alt="logo" src={"https://www.squadhelp.com/images/squadhelp-logo-color.jpg"}/>
+                        <img alt="logo" src={squadLogo}/>
                     </Link>
                     <div className={styles.navContainer}>
                         <HeaderNavigation/>

@@ -22,7 +22,7 @@ module.exports.loginUser = async (req, res, next) => {
     if (!isValid) {
       return next(new UserNotFoundError());
     }
-    const { tokenPair } = authHelper.generateTokenPair(user.id);
+    const { tokenPair } = authHelper.generateTokenPair(user.id, user.role, user.isBanned);
     const count = await RefreshToken.count({ where:{ userId: user.id } });
     if (count >= constants.DEVICES_COUNT) {
       RefreshToken.destroy({ where: { userId: user.id } },  transaction);
@@ -39,16 +39,15 @@ module.exports.loginUser = async (req, res, next) => {
 };
 
 module.exports.updateUserById = async(req, res, next) => {
-  const [, [result]] = await User.update(req.body);
-  res.send(result.dataValues);
-
+    const [, [result]] = await User.update(req.body, {where: {id: req.params.id}});
+    res.send(result.dataValues);
 };
 
 module.exports.createUser = (req, res, next) => {
   const { lastName, firstName, email, password, role  } = req.body;
   User.create({ lastName, firstName, email, password, role })
     .then(user => {
-      const { tokenPair } = authHelper.generateTokenPair(user.id);
+      const { tokenPair } = authHelper.generateTokenPair(user.id, user.role, user.isBanned);
       RefreshToken.create({ userId: user.id, tokenString: tokenPair.refreshToken });
       res.send({ user, tokenPair });
     })

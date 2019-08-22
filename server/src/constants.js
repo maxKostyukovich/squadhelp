@@ -18,33 +18,18 @@ const ROLES = {
   ADMIN: "ADMIN"
 };
 const ACTIONS = {
-  CREAT: {
-    CONTEST: "CREATE_CONTEST",
-  },
-  UPDATE: {
-    CONTEST: "UPDATE_CONTEST",
-    USER: "UPDATE_USER",
-  },
-  READ: {
-    USER: {
-      ONE_USER: "READ_USER",
-      ALL_USERS: "READ_ALL_USERS",
-    },
-    CONTEST: {
-      ONE_CONTEST: "READ_CONTEST",
-    }
-  },
-  DELETE: {
-
-  }
+  CREATE: "create",
+  UPDATE: "update",
+  READ: "read",
+  DELETE: "delete",
 };
 const SALT = 10;
 const DEVICES_COUNT = 3;
-module.exports = Object({
+module.exports = {
   PORT,
   JWT,
   SALT,
   DEVICES_COUNT,
   ROLES,
   ACTIONS
-});
+};

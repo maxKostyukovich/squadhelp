@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     if(payload.type !== constants.JWT.tokens.access.type){
       return next(new UnauthorizedError('Invalid token'));
     }
-    req.userId = payload.id;
+    req.payload = payload;
     next();
   }catch (err) {
     if(err instanceof jwt.TokenExpiredError){

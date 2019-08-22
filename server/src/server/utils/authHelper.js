@@ -1,9 +1,11 @@
 import uuid from 'node-uuid';
 import constants from '../../constants';
 import jwt from 'jsonwebtoken';
-const generateAccesToken = (id) => {
+const generateAccessToken = (id, role, isBanned) => {
   const payload = {
     id,
+    role,
+    isBanned,
     type: constants.JWT.tokens.access.type,
   };
   const options = { expiresIn: constants.JWT.tokens.access.expiresIn };
@@ -17,14 +19,12 @@ const generateRefreshToken = () => {
   const options = { expiresIn: constants.JWT.tokens.refresh.expiresIn };
   return jwt.sign(payload, constants.JWT.secret, options);
 };
-const generateTokenPair = (id) => {
-  const accessToken = generateAccesToken(id);
+const generateTokenPair = (id, role, isBanned) => {
+  const accessToken = generateAccessToken(id, role, isBanned);
   const refreshToken = generateRefreshToken();
   return { tokenPair: {accessToken, refreshToken} };
 };
 
 module.exports = {
-  generateAccesToken,
-  generateRefreshToken,
   generateTokenPair,
 };

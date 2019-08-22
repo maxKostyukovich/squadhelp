@@ -22,7 +22,6 @@ axios.interceptors.response.use(
         const {config, response: {status, data}} = err;
         if(status === 401) {
             if (!refreshToken) {
-                console.log("No tokens");
                 return Promise.reject(err);
             }
             if (['Token expired'].includes(data)) {

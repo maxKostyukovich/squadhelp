@@ -10,7 +10,7 @@ class HeaderTop extends Component{
             return (
               <div style={{display: 'flex',paddingRight: '10px'}}>
                 <HeaderUserNavigation/>
-                <LoginButton link={'/'} text={<i className="far fa-envelope" style={{opacity: "0.5",marginLeft: "3px"}}></i>}/>
+                <LoginButton  link={'/'} text={<i className="far fa-envelope" style={{opacity: "0.5",marginLeft: "3px"}}></i>}/>
               </div>
             );
         } else {

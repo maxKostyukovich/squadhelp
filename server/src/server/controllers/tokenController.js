@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import constants from '../../constants';
 import UnauthorizedError from '../errorHandlers/UnauthorizedError';
 const RefreshToken = db.RefreshToken;
+const User = db.User;
 import authHelper from '../utils/authHelper';
 
 
@@ -19,7 +20,8 @@ module.exports.refreshToken = async (req, res, next) => {
     if(!token){
       return next(new UnauthorizedError('Invalid refresh token'))
     }
-    const { tokenPair } = authHelper.generateTokenPair(token.userId);
+    const user = await User.findByPk(token.userId);
+    const { tokenPair } = authHelper.generateTokenPair(token.userId, user.role, user.isBanned);
     await RefreshToken.create({ userId: token.userId, tokenString: tokenPair.refreshToken }, { transaction });
     await RefreshToken.destroy({ where: { id: token.id }}, transaction);
     await transaction.commit();
