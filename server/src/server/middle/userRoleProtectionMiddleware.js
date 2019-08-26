@@ -1,7 +1,6 @@
-import ACCESS from '../rules/roles';
 import UserNotFoundError from '../errorHandlers/UserNotFoundError';
 import ForbiddenError from '../errorHandlers/ForbiddenError';
-import db, {sequelize} from '../models';
+import db from '../models';
 import { ACTIONS } from '../../constants';
 const User = db.User;
 module.exports.checkUserPermissions = (action) => {
@@ -9,7 +8,7 @@ module.exports.checkUserPermissions = (action) => {
         try {
           switch(action){
             case ACTIONS.READ:
-              if(req.ability.can(ACTIONS.READ, 'User')){
+              if(req.ability.can(ACTIONS.READ, new User({ id: req.payload.id }))){
                 return next();
               }
               break;
@@ -21,6 +20,14 @@ module.exports.checkUserPermissions = (action) => {
                 next();
               }
               break;
+
+              case ACTIONS.CREATE:
+                return next();
+              case ACTIONS.DELETE:
+                if(req.ability.can(ACTIONS.DELETE, new User({ id: req.params.id }))){
+                  return next();
+                }
+                break;
           }
         } catch(err) {
             next(err);

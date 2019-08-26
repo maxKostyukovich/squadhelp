@@ -12,6 +12,7 @@ import renderMainPage from './components/HOC/renderMainPage';
 import renderAdminPage from './components/HOC/renderAdminPage';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 const App = () => {
+    console.log("Hello World!!!");
     return(
         <Router history={history}>
             <Switch>

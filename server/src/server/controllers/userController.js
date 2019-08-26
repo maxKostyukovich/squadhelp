@@ -39,29 +39,32 @@ module.exports.loginUser = async (req, res, next) => {
 };
 
 module.exports.updateUserById = async(req, res, next) => {
-    const [, [result]] = await User.update(req.body, {where: {id: req.params.id}});
-    res.send(result.dataValues);
+    await User.update( Object.assign(req.body), {where: {id: req.params.id}});
+    res.send({ ok: "OK" });
 };
 
-module.exports.createUser = (req, res, next) => {
+module.exports.createUser = async (req, res, next) => {
   const { lastName, firstName, email, password, role  } = req.body;
-  User.create({ lastName, firstName, email, password, role })
-    .then(user => {
-      const { tokenPair } = authHelper.generateTokenPair(user.id, user.role, user.isBanned);
-      RefreshToken.create({ userId: user.id, tokenString: tokenPair.refreshToken });
+  let transaction;
+  try {
+      transaction = await sequelize.transaction();
+      const user = await User.create({lastName, firstName, email, password, role}, { transaction });
+      const {tokenPair} = authHelper.generateTokenPair(user.id, user.role, user.isBanned);
+      await RefreshToken.create({userId: user.id, tokenString: tokenPair.refreshToken}, { transaction });
+      await transaction.commit();
       res.send({ user, tokenPair });
-    })
-    .catch(err => {
+  } catch(err){
+    await transaction.rollback();
       if(err.errors[0].message){
-        next(new DBError(err.errors[0].message));
+          next(new DBError(err.errors[0].message));
       } else{
-        next(err);
+          next(err);
       }
-    });
+  }
 };
 
 module.exports.getUser = (req, res, next) => {
-  User.findByPk(req.userId, { attributes: { exclude: ['password'] } })
+  User.findByPk(req.payload.id, { attributes: { exclude: ['password'] } })
     .then(user =>{
       if(!user){
         return next(new UserNotFoundError());
@@ -73,8 +76,8 @@ module.exports.getUser = (req, res, next) => {
 module.exports.getAllUsers = async (req, res, next) => {
   const users = await User.findAll({ where: { role:{ [Op.ne]: constants.ROLES.ADMIN } }, order: [['id', 'ASC']] });
   const filterUsers = await users.map(value => {
-    const  { firstName, lastName, isBanned, role } = value.dataValues;
-    return { firstName, lastName, isBanned, role };
+    const  { id, firstName, lastName, isBanned, role } = value.dataValues;
+    return { id, firstName, lastName, isBanned, role };
   });
   res.send(filterUsers);
 };
