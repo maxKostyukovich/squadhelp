@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import styles from './HeaderUserNavigation.module.sass'
 import connect from 'react-redux/es/connect/connect';
-import { userDropList } from '../../../../../constants/headerText';
+import { userDropList, userAdminDropList } from '../../../../../constants/headerText';
 import {logoutAction, dropDownMenuAction, outClickAction} from "../../../../../actions/actionCreator";
-import {STORAGE_KEYS, defaultSmallImgProfile} from "../../../../../constants";
+import {STORAGE_KEYS, defaultSmallImgProfile, ROLE} from "../../../../../constants";
 import { Link } from 'react-router-dom'
 
 class HeaderUserNavigation extends React.Component {
@@ -19,7 +19,8 @@ class HeaderUserNavigation extends React.Component {
     this.props.outClickAction();
   };
   renderDropList = () => {
-    return userDropList.map(value => {
+    const dropList = this.props.user.role === ROLE.ADMIN?userAdminDropList:userDropList;
+    return dropList.map(value => {
       return(
         <div key={value.text}>
           <Link to={value.to}>

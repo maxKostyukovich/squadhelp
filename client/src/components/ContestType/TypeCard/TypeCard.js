@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from './TypeCard.module.sass'
 import history from '../../../history';
+import { Link } from 'react-router-dom'
 export default function ContestType(props){
   const clickHandler = () => {
-    // console.log(history);
-    // const location ={
-    //   search: 'qwe=123&q=1'
-    // };
-    // history.push(location);
+    const location = {
+      pathname: props.to,
+      search: props.search,
+    };
+    history.push(location);
   };
     return(
         <div className={styles.container} onClick={clickHandler}>

@@ -16,7 +16,7 @@ class HeaderBottom extends Component{
                     </Link>
                     <div className={styles.navContainer}>
                         <HeaderNavigation/>
-                            <ContestButton text={"START CONTEST"} link={'/contesttype'}/>
+                            <ContestButton text={"START CONTEST"} link={'/contest'}/>
                     </div>
                 </div>
             </div>

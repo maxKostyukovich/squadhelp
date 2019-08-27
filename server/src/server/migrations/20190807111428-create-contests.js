@@ -1,4 +1,3 @@
-
 'use strict';
 
 module.exports = {
@@ -40,6 +39,14 @@ module.exports = {
         validate: {
           isIn: ["Company", "Product", 'Project']
         },
+      },
+      whatBusinessDo: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
+      styles: {
+        type: Sequelize.TEXT,
+        allowNull: true,
       },
       description: {
         type: Sequelize.TEXT,

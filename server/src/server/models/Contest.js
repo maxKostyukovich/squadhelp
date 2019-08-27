@@ -57,6 +57,14 @@ module.exports = (sequelize, DataTypes) => {
                 notEmpty: true,
             },
         },
+        whatBusinessDo: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        styles: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
         isPaid: {
             type: DataTypes.BOOLEAN,
             allowNull: false,

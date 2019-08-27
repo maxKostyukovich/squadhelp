@@ -176,4 +176,31 @@ const userDropList = [
   },
 ];
 
-export { bottomNavText, userDropList } ;
+const userAdminDropList = [
+  {
+    text: 'View Dashboard',
+    to: '/',
+  },
+  {
+    text: 'My Account',
+    to: '/',
+  },
+  {
+    text: 'Messages',
+    to: '/',
+  },
+  {
+    text: 'Affiliate Dashboard',
+    to: '/',
+  },
+  {
+    text: 'Admin Panel',
+    to: '/admin-panel'
+  },
+  {
+    text: 'Logout',
+    to: '/',
+  },
+];
+
+export { bottomNavText, userDropList, userAdminDropList } ;

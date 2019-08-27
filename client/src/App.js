@@ -6,13 +6,13 @@ import MainPage from './pages/MainPage/MainPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignUpPage from './pages/SignUpPage/SignUpPage';
 import AdminPage from './pages/AdminPage/AdminPage';
-import ContestTypePage from './pages/ContestTypePage/ContestTypePage';
+import ContestPage from './pages/ContestPage/ContestPage';
 import NotFound from './pages/NotFound/NotFound';
 import renderMainPage from './components/HOC/renderMainPage';
 import renderAdminPage from './components/HOC/renderAdminPage';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import StartContestPage from './pages/StartContestPage/StartContestPage';
 const App = () => {
-    console.log("Hello World!!!");
     return(
         <Router history={history}>
             <Switch>
@@ -20,7 +20,8 @@ const App = () => {
                 <Route path="/login" component={LoginPage} />
                 <Route path="/signup" component={SignUpPage} />
                 <PrivateRoute path={"/admin-panel"} component={renderAdminPage(AdminPage)}/>
-                <Route path={"/contesttype"} component={renderMainPage(ContestTypePage)}/>
+                <Route  exact path={"/contest"} component={renderMainPage(ContestPage)}/>
+                <Route path={'/startcontest'} component={renderMainPage(StartContestPage)}/>
                 <Route component={NotFound}/>
             </Switch>
         </Router>);

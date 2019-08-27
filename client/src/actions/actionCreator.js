@@ -40,3 +40,8 @@ export const dropDownMenuAction = (isActive) => ({
 export const outClickAction = () => ({
   type: ACTION.OUT_CLICK,
 });
+
+export const selectContestTypeAction = (contestType) => ({
+  type: ACTION.SELECT_CONTEST_TYPE,
+  contestType,
+});

@@ -23,6 +23,16 @@ const ACTIONS = {
   READ: "read",
   DELETE: "delete",
 };
+const CONTEST_TYPE = {
+  NAME: 'NAME',
+  LOGO: 'LOGO',
+  TAGLINE: 'TAGLINE',
+  NAME_LOGO: 'NAME_LOGO',
+  NAME_TAGLINE: 'NAME_TAGLINE',
+  LOGO_TAGLINE: 'LOGO_TAGLINE',
+  NAME_LOGO_TAGLINE: 'NAME_LOGO_TAGLINE',
+};
+
 const SALT = 10;
 const DEVICES_COUNT = 3;
 module.exports = {
@@ -31,5 +41,6 @@ module.exports = {
   SALT,
   DEVICES_COUNT,
   ROLES,
-  ACTIONS
+  ACTIONS,
+  CONTEST_TYPE,
 };

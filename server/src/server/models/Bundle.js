@@ -19,6 +19,24 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        typeOfIndustry: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+            },
+        },
+        targetCustomers: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+            },
+        },
     });
     Bundle.associate = function (models) {
         Bundle.hasMany(models.Contest, { foreignKey: 'bundleId', targetKey: 'id' });

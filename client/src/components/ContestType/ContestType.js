@@ -10,7 +10,7 @@ export default function ContestType(props){
                 <ContestTypeHeader/>
                 <div className={styles.cardRow}>
                     {contestTypes.map(value => (
-                      <TypeCard key={value.title} title={value.title} text={value.text} img={value.img} search={value.search}/>
+                      <TypeCard key={value.title} title={value.title} text={value.text} img={value.img} to={value.to} search={value.search}/>
                     ))}
                 </div>
             </div>
