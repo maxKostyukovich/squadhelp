@@ -10,7 +10,7 @@ function Input(props){
     }
   };
   return(
-    <div className={styles.container}>
+    <div className={[styles.container, props.className].join(' ')}>
       <label>{props.label}</label>
       <input {...props.input} type={props.type} placeholder={props.placeholder}/>
       {renderError()}

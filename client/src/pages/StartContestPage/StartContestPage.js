@@ -3,15 +3,14 @@ import styles from './StartContestPage.module.sass'
 import queryString from 'query-string';
 import history from '../../history';
 import { CONTEST_TYPE } from "../../constants";
-import _ from 'lodash'
 import { Redirect } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
 import Header from "../../components/Header/Header";
+import BundleForm from '../../components/Contest/BundleForm/BundleForm';
 import { selectContestTypeAction } from '../../actions/actionCreator';
 function StartContestPage (props) {
   useEffect(() => {
     const typeFromQuery = queryString.parse(history.location.search).type;
-    console.log(CONTEST_TYPE[typeFromQuery]);
     if(CONTEST_TYPE[typeFromQuery]){
       props.selectContestType(typeFromQuery);
     } else{
@@ -22,7 +21,7 @@ function StartContestPage (props) {
   return(
     <div className={styles.container}>
       <Header/>
-
+      <BundleForm/>
     </div>
   )
 }
