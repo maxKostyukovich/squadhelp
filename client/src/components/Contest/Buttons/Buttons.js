@@ -4,7 +4,7 @@ import styles from './Buttons.module.sass';
 function Buttons(props) {
   return (
     <div className={styles.container}>
-      <span>{props.text}</span>
+      <span style={{fontSize: '17px'}}>{props.text}</span>
       <div className={styles.buttons}>
         <div className={[styles.button, styles.backButton].join(' ')}>
           <span>Back</span>

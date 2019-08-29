@@ -19,6 +19,10 @@ module.exports = {
         },
         allowNull: false,
       },
+      bundleType: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       title: {
         allowNull: false,
         type: Sequelize.STRING,
@@ -40,6 +44,15 @@ module.exports = {
         validate: {
           notEmpty: true,
         },
+      },
+      isComplete: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      isPaid: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
                 model: 'Bundles',
             },
         },
-        title: {
+        contestTitle: {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                isIn: ["Name", "Logo", "Tagline"]
+                isIn: ["NAME", "LOGO", "TAGLINE"]
             },
         },
         typeOfName: {
@@ -65,18 +65,13 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: true,
         },
-        isPaid: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false,
-        },
         isActive: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
             allowNull: false,
         },
         files: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
+            type: DataTypes.STRING,
             allowNull: true,
         },
         cost: {

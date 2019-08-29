@@ -19,7 +19,7 @@ module.exports = {
         },
         allowNull: false,
       },
-      title: {
+      contestTitle: {
         type: Sequelize.STRING,
         allowNull: true,
         validate: {
@@ -30,7 +30,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
         validate: {
-          isIn: ["Name", "Logo", "Tagline"]
+          isIn: ["NAME", "LOGO", "TAGLINE"]
         },
       },
       typeOfName: {
@@ -55,18 +55,14 @@ module.exports = {
           notEmpty: true,
         },
       },
-      isPaid: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
+
       isActive: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
         allowNull: false,
       },
       files: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
+        type: Sequelize.STRING,
         allowNull: true,
       },
       cost: {

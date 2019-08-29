@@ -19,9 +19,18 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        bundleType: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: true,
+        },
+        isPaid: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
         },
         typeOfIndustry: {
             type: DataTypes.STRING,
@@ -29,6 +38,10 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 notEmpty: true,
             },
+        },
+        isComplete: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
         },
         targetCustomers: {
             type: DataTypes.STRING,

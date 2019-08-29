@@ -1,6 +1,6 @@
 import React , { Component } from 'react';
 import styles from './AdminPage.module.sass';
-import {getUserAction} from "../../actions/actionCreator";
+import { getUserAction } from "../../actions/actionCreator";
 import connect from 'react-redux/es/connect/connect';
 import List from '../../components/ForwardtoList/ForwardtoList';
 import SubmitButton from "../../components/LoginForm/SubmitButton/SubmitButton";
