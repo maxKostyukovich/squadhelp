@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
 import Header from "../../components/Header/Header";
 import BundleForm from '../../components/Contest/BundleForm/BundleForm';
+import ContestForm from '../../components/Contest/ContestForm/ContestForm';
 import { selectContestTypeAction } from '../../actions/actionCreator';
 function StartContestPage (props) {
   useEffect(() => {

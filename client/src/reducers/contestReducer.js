@@ -17,6 +17,12 @@ export default function (state = initialState, action) {
         contestType: action.contestType,
       }
     }
+    case ACTION.SET_NEXT_CONTEST_STEP: {
+      return {
+        ...state,
+        currentStepIndex: action.nextStep
+      }
+    }
     default: {
       return state;
     }

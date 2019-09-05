@@ -1,3 +1,5 @@
+import logo from '../images/squadhelp-logo-color.jpg'
+import anonumAvatar from '../images/anonumous-min.png'
 export const STORAGE_KEYS = {
     ACCESS_TOKEN_TYPE: "access",
     REFRESH_TOKEN_TYPE: "refresh"
@@ -21,5 +23,5 @@ export const CONTEST_TYPE = {
     NAME_LOGO_TAGLINE: 'NAME_LOGO_TAGLINE',
 };
 
-export const defaultSmallImgProfile = "https://www.squadhelp.com/assets/nimages/compressed/anonumous-min.png";
-export const squadLogo = 'https://www.squadhelp.com/images/squadhelp-logo-color.jpg';
+export const defaultSmallImgProfile = anonumAvatar;
+export const squadLogo = logo;

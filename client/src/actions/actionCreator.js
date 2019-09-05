@@ -45,3 +45,8 @@ export const selectContestTypeAction = (contestType) => ({
   type: ACTION.SELECT_CONTEST_TYPE,
   contestType,
 });
+
+export const nextContestStepAction = (nextStep) => ({
+  type: ACTION.SET_NEXT_CONTEST_STEP,
+  nextStep,
+});

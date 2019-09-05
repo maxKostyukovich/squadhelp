@@ -1,3 +1,4 @@
+import { isRequireValidation } from '../utils/validation/validationFields'
 const NAME = [
   {
     type: 'text',
@@ -9,7 +10,7 @@ const NAME = [
   {
     type: 'select',
     label: 'What type of Name are you looking for?',
-    validation: 'isRequire',
+    validation: [isRequireValidation],
     name: 'typeOfName',
     options: [
       {label: 'Company', value: 'Company'},
@@ -22,12 +23,12 @@ const NAME = [
     type: 'text',
     placeholder: 'e.g. We\'re an online lifestyle brand that provides stylish and high quality apparel to the expert eco-conscious shopper.',
     label: 'What does your company / business do?',
-    validation: "isRequire",
+    validation: [isRequireValidation],
   },
   {
     type: 'select',
     label: 'What type of Name are you looking for?',
-    validation: 'isRequire',
+    validation: [isRequireValidation],
     name: 'styles',
     options: [
       {label: 'Classic', value: 'Classic'},
@@ -42,9 +43,11 @@ const NAME = [
     type: 'textarea',
     label: 'Any other details that are relevant to this project?',
     placeholder: 'Share any additional information or direction that might be useful to creatives',
-    validation: 'isRequire',
+    validation: [isRequireValidation],
     name: 'description',
   },
-
-
 ];
+
+export {
+  NAME,
+}

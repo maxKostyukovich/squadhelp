@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styles from './HeaderUserNavigation.module.sass'
 import connect from 'react-redux/es/connect/connect';
 import { userDropList, userAdminDropList } from '../../../../../constants/headerText';
@@ -43,7 +43,7 @@ class HeaderUserNavigation extends React.Component {
     return(
       <div  ref={this.toggleContainer} className={styles.container} onClick={this.clickHandler}>
         <div className={styles.center}>
-          <img src={defaultSmallImgProfile} alt={"Profile photo"} />
+          <img src={defaultSmallImgProfile} alt={"Profile avatar"} />
           <span>Hi, {this.props.user.firstName}</span>
           <i className="fas fa-angle-down" style={{opacity: "0.3",marginLeft: "3px"}}></i>
         </div>
