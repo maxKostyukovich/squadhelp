@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './HeaderUserNavigation.module.sass'
 import connect from 'react-redux/es/connect/connect';
-import { userDropList, userAdminDropList } from '../../../../../constants/headerText';
-import {logoutAction, dropDownMenuAction, outClickAction} from "../../../../../actions/actionCreator";
-import {STORAGE_KEYS, defaultSmallImgProfile, ROLE} from "../../../../../constants";
+import { userDropList, userAdminDropList } from '../../../../constants/headerText';
+import {logoutAction, dropDownMenuAction, outClickAction} from "../../../../actions/actionCreator";
+import {STORAGE_KEYS, defaultSmallImgProfile, ROLE} from "../../../../constants";
 import { Link } from 'react-router-dom'
 
 class HeaderUserNavigation extends React.Component {
@@ -44,7 +44,7 @@ class HeaderUserNavigation extends React.Component {
       <div  ref={this.toggleContainer} className={styles.container} onClick={this.clickHandler}>
         <div className={styles.center}>
           <img src={defaultSmallImgProfile} alt={"Profile avatar"} />
-          <span>Hi, {this.props.user.firstName}</span>
+          <span id={styles.congratulation}>Hi, {this.props.user.firstName}</span>
           <i className="fas fa-angle-down" style={{opacity: "0.3",marginLeft: "3px"}}></i>
         </div>
         {this.props.headerMenuState && (

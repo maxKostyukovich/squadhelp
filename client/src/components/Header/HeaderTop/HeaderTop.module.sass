@@ -1,0 +1,63 @@
+.headerTop
+  height: 40px
+  margin-bottom: 13px
+  border-bottom: 1px solid #cacaca
+  background-color: white
+.container
+  padding: 0 15px
+  margin: 0 auto
+.headerRow
+  height: 100%
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  max-width: 1170px
+  margin: 0 auto
+.phone
+  margin-left: 210px
+  border-left: 1px solid #cacaca
+  border-right: 1px solid #cacaca
+  display: flex
+  flex-direction: row
+  justify-content: center
+  align-items: center
+  padding: 0 15px
+  @media screen and (max-width: 800px)
+    border: none
+    margin-left: 15px
+    .mobileTelLink
+      display: none
+    i
+      display: none
+  .mobileTelLink
+    color: #337ab7
+    text-decoration: none
+.loginContainer
+  display: flex
+  flex-direction: row
+  justify-content: center
+  border-left: 1px solid #cacaca
+  align-items: center
+.mobileStyle
+  display: none
+  @media screen and (max-width: 800px)
+    display: block
+    margin-right: 15px
+.mobileLogo
+  display: none
+  width: 100px
+  height: 32px
+  @media screen and (max-width: 800px)
+    display: block
+.mobileNavList
+  background-color: white
+  position: relative
+  top: 50px
+  left: 0
+  padding: 15px
+  color: #333
+.navContainer
+  width: 100%
+  position: absolute
+  z-index: 100
+  display: none

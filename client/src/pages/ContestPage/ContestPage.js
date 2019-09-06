@@ -4,7 +4,6 @@ import history from '../../history/'
 import styles from './ContestPage.module.sass';
 import ContestType from '../../components/ContestType/ContestType';
 import Header from '../../components/Header/Header';
-import ProgressBar from '../../components/Contest/ProgressBar/ProgressBar';
 import connect from 'react-redux/es/connect/connect';
 import ContestHeaderWithProgressBar
   from "../../components/Contest/ContestHeaderWithProgressBar/ContestHeaderWithProgressBar";

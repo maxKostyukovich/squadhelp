@@ -1,7 +1,7 @@
 import React , { Component } from 'react';
 import styles from './HeaderNavigation.module.sass';
 import { Link } from 'react-router-dom';
-import { bottomNavText } from '../../../../../constants/headerText';
+import { bottomNavText } from '../../../../constants/headerText';
 class HeaderNavigation extends Component{
 
   renderDropMenu = (item) => {

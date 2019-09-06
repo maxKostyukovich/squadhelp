@@ -1,19 +1,21 @@
 .container
   height: 350px
   max-width: 230px
+  width: 100%
   padding: 15px 25px
   text-align: center
   display: flex
   flex-direction: column
-  flex: 1
   color: black
   align-items: center
   background-color: white
   margin: 20px
   cursor: pointer
   @media screen and (max-width: 700px)
-    max-width: 350px
     padding-bottom: 50px
+    margin: 15px
+  @media screen and (max-width: 400px)
+    margin: 5px
   &:hover
     box-shadow: 0 3px 7px rgba(0,0,0,0.5)
     hr

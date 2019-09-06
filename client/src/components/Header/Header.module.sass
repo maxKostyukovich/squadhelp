@@ -1,2 +1,11 @@
 header
   font-family: 'Raleway',sans-serif
+.container
+  z-index: 100
+  display: flex
+  flex-direction: column
+  @media screen and (max-width: 800px)
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
