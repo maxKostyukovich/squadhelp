@@ -1,16 +1,20 @@
 import constants from '../../constants';
 import { adminAbility, buyerAbility, creativeAbility } from '../rules/ability';
 import ForbiddenError from '../errorHandlers/ForbiddenError';
-module.exports = (req, res, next) => {
+import db from '../models';
+import { ACTIONS } from '../../constants';
+const User = db.User;
+
+module.exports = async (req, res, next) => {
     switch (req.payload.role) {
       case constants.ROLES.ADMIN:
-        req.ability = adminAbility(req.payload);
+        req.ability = await adminAbility(req.payload);
         break;
       case constants.ROLES.BUYER:
-        req.ability = buyerAbility(req.payload);
+        req.ability = await buyerAbility(req.payload);
         break;
       case constants.ROLES.CREATIVE:
-        req.ability = creativeAbility(req.payload);
+        req.ability = await creativeAbility(req.payload);
         break;
       default:
         return next(new ForbiddenError('Do not have permissions'))

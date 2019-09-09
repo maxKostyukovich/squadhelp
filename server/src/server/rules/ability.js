@@ -20,7 +20,7 @@ function buyerAbility(user) {
   return AbilityBuilder.define((can, cannot) => {
     can(ACTIONS.CREATE, 'User');
     can([ACTIONS.UPDATE, ACTIONS.READ], 'User', { id: user.id });
-    cannot(ACTIONS.UPDATE, 'User', ['isBanned', 'role']);
+
 
     can('crud', 'Bundle', { userId: user.id });
     can(ACTIONS.CREATE, ['Bundle', 'Contest']);
@@ -28,6 +28,7 @@ function buyerAbility(user) {
     if(user.isBanned) {
       cannot('crud', 'all');
     }
+    cannot(ACTIONS.UPDATE, 'User', ['isBanned','role']);
   });
 }
 

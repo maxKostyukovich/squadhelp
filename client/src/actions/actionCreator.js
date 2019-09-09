@@ -50,3 +50,8 @@ export const nextContestStepAction = (nextStep) => ({
   type: ACTION.SET_NEXT_CONTEST_STEP,
   nextStep,
 });
+
+export const burgerMenuAction = (isActive) => ({
+  type: ACTION.BURGER_CLICK,
+  burgerState: isActive,
+});

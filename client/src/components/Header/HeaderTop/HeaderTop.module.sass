@@ -39,10 +39,10 @@
   border-left: 1px solid #cacaca
   align-items: center
 .mobileStyle
+  padding: 0 15px
   display: none
   @media screen and (max-width: 800px)
     display: block
-    margin-right: 15px
 .mobileLogo
   display: none
   width: 100px
@@ -52,12 +52,18 @@
 .mobileNavList
   background-color: white
   position: relative
-  top: 50px
+  height: 50vh
+  top: -13px
   left: 0
-  padding: 15px
+  padding: 0 15px
+  border-top: 1px solid #333
   color: #333
+  li
+    padding: 10px
+
 .navContainer
   width: 100%
-  position: absolute
   z-index: 100
   display: none
+  @media screen and (max-width: 800px)
+    display: block

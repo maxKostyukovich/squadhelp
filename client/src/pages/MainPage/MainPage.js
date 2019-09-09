@@ -10,6 +10,9 @@ class MainPage extends Component{
         return(
             <div>
                 <Header isLogin={this.props.isLogin}/>
+                <div className={styles.mobileMargin}>
+                    <span>pizdecnahoiblyat</span>
+                </div>
             </div>
         );
     }

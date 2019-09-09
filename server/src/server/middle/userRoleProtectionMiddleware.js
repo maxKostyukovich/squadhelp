@@ -14,10 +14,10 @@ module.exports.checkUserPermissions = (action) => {
               break;
             case ACTIONS.UPDATE:
               const user = await User.findByPk(req.params.id);
-              req.body.id = user.id;
-              req.body.role = user.role;
-              if(req.ability.can(ACTIONS.UPDATE, new User(req.body))){
-                next();
+              console.log('first ',req.ability.can(ACTIONS.UPDATE, new User(req.body)));
+              console.log('second ',checkPermissionsPerField(req.ability,ACTIONS.UPDATE, Object.keys(req.body)));
+              if(req.ability.can(ACTIONS.UPDATE, new User(req.body)) && checkPermissionsPerField(req.ability,ACTIONS.UPDATE, Object.keys(req.body))){
+                return next();
               }
               break;
 
@@ -30,7 +30,19 @@ module.exports.checkUserPermissions = (action) => {
                 break;
           }
         } catch(err) {
-            next(err);
+           return next(err);
         }
+        return next(new ForbiddenError());
   }
 };
+
+function checkPermissionsPerField(ability,action,fields) {
+  let res = true;
+  console.log(fields);
+  fields.map(value => {
+    if(ability.cannot(action,'User',value)){
+      res = false
+    }
+  });
+  return res;
+}

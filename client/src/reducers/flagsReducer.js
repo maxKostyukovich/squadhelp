@@ -2,6 +2,7 @@ import ACTION from '../actions/actiontsTypes';
 
 const initialState = {
   headerMenuState: false,
+  burgerMenuState: false,
 };
 
 export default function (state = initialState, action) {
@@ -16,6 +17,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         ...initialState,
+      }
+    }
+    case ACTION.BURGER_CLICK: {
+      return {
+        ...state,
+        burgerMenuState: action.burgerState,
       }
     }
     default: {
