@@ -1,6 +1,7 @@
 import UserNotFoundError from '../errorHandlers/UserNotFoundError';
 import ForbiddenError from '../errorHandlers/ForbiddenError';
 import db from '../models';
+import { checkPermissionsPerField } from '../utils/funcForCkeckPermissionsFields';
 import { ACTIONS } from '../../constants';
 const User = db.User;
 module.exports.checkUserPermissions = (action) => {
@@ -14,13 +15,15 @@ module.exports.checkUserPermissions = (action) => {
               break;
             case ACTIONS.UPDATE:
               const user = await User.findByPk(req.params.id);
-              console.log('first ',req.ability.can(ACTIONS.UPDATE, new User(req.body)));
-              console.log('second ',checkPermissionsPerField(req.ability,ACTIONS.UPDATE, Object.keys(req.body)));
-              if(req.ability.can(ACTIONS.UPDATE, new User(req.body)) && checkPermissionsPerField(req.ability,ACTIONS.UPDATE, Object.keys(req.body))){
+              if(!checkPermissionsPerField(req.ability,ACTIONS.UPDATE, Object.keys(req.body))){  //Проверка на разрешенные поля для изменения пользователю
+                  break;
+              }
+                req.body.id = user.id;
+                req.body.role = user.role;
+              if(req.ability.can(ACTIONS.UPDATE, new User(req.body))){
                 return next();
               }
               break;
-
               case ACTIONS.CREATE:
                 return next();
               case ACTIONS.DELETE:
@@ -36,13 +39,3 @@ module.exports.checkUserPermissions = (action) => {
   }
 };
 
-function checkPermissionsPerField(ability,action,fields) {
-  let res = true;
-  console.log(fields);
-  fields.map(value => {
-    if(ability.cannot(action,'User',value)){
-      res = false
-    }
-  });
-  return res;
-}

@@ -29,6 +29,7 @@ module.exports.loginUser = async (req, res, next) => {
     }
     await RefreshToken.create({ userId: user.id, tokenString: tokenPair.refreshToken }, { transaction });
     await transaction.commit();
+    user.password = undefined;
     res.send({ user, tokenPair });
   }catch (e) {
     if(e){
@@ -63,14 +64,13 @@ module.exports.createUser = async (req, res, next) => {
   }
 };
 
-module.exports.getUser = (req, res, next) => {
-  User.findByPk(req.payload.id, { attributes: { exclude: ['password'] } })
-    .then(user =>{
-      if(!user){
-        return next(new UserNotFoundError());
-      }
-      res.send(user);
-    }).catch(err => next(err));
+module.exports.getUser = async (req, res, next) => {
+  const user = await User.findByPk(req.payload.id);
+  user.password = undefined;
+  if(user){
+     return res.send(user);
+  }
+  return next(new UserNotFoundError());
 };
 
 module.exports.getAllUsers = async (req, res, next) => {

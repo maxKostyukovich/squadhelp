@@ -55,3 +55,8 @@ export const burgerMenuAction = (isActive) => ({
   type: ACTION.BURGER_CLICK,
   burgerState: isActive,
 });
+
+export const setNewWordAction = (word) => ({
+  type: ACTION.SET_NEXT_WORD_MAIN_PAGE,
+  word,
+});

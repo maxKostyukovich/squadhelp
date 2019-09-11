@@ -1,9 +1,6 @@
 import constants from '../../constants';
 import { adminAbility, buyerAbility, creativeAbility } from '../rules/ability';
 import ForbiddenError from '../errorHandlers/ForbiddenError';
-import db from '../models';
-import { ACTIONS } from '../../constants';
-const User = db.User;
 
 module.exports = async (req, res, next) => {
     switch (req.payload.role) {
